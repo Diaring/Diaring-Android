@@ -1,4 +1,4 @@
-package com.oss.diaring.ui.base
+package com.oss.diaring.presentation.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
