@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Diaring</string>
+    <string name="app_name">다이어링</string>
+
+    <string name="navigation_calendar">캘린더</string>
+    <string name="navigation_dashboard">대시보드</string>
+    <string name="navigation_mypage">마이페이지</string>
 </resources>
