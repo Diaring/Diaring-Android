@@ -7,4 +7,20 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Diaring Color Set -->
+    <color name="primary_blue">#66A4FF</color>
+    <color name="secondary_purple">#B39DDB</color>
+    <color name="accent_red">#FF5449</color>
+
+    <color name="background">#FDFCFF</color>
+    <color name="surface">#DFE3EC</color>
+
+    <color name="text_black">#000000</color>
+    <color name="text_white">#ffffff</color>
+
+    <color name="dark_grey">#73777F</color>
+    <color name="grey">#ABABAE</color>
+    <color name="light_grey">#E2E2E6</color>
+
 </resources>
