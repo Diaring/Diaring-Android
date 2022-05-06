@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "23891867362",
+    "project_id": "diaring-c6e19",
+    "storage_bucket": "diaring-c6e19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23891867362:android:196802ea54e264d3b2d0bb",
+        "android_client_info": {
+          "package_name": "com.oss.diaring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23891867362-bav9s85vga30r5sk00ecikq8bbci91do.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oss.diaring",
+            "certificate_hash": "7b9702d66c4b7b3c57d2bd063aaca2b2491c23bd"
+          }
+        },
+        {
+          "client_id": "23891867362-3ee9no7tcqj59crqvvrj7ha5q0k7k47h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9_YKWti91siYGEFeVRoaiiMcSTb_NOtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23891867362-3ee9no7tcqj59crqvvrj7ha5q0k7k47h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
