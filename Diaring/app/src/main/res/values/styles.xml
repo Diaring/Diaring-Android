@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom TextHeadline default 18sp -->
+    <style name="TextHeadline">
+        <item name="android:textSize">18sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextHeadline.Black">
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+
+    <style name="TextHeadline.Blue">
+        <item name="android:textColor">@color/primary_blue</item>
+    </style>
+
+    <style name="TextHeadline.Black.Bold">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+    </style>
+
+    <style name="TextHeadline.Blue.Bold">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+    </style>
+
+    <!-- TextMedium default 14sp -->
+    <style name="TextSubtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextSubtitle2.Black">
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+
+    <style name="TextSubtitle2.Blue">
+        <item name="android:textColor">@color/primary_blue</item>
+    </style>
+
+    <style name="TextSubtitle2.Accent">
+        <item name="android:textColor">@color/accent_red</item>
+    </style>
+
+    <style name="TextSubtitle2.White">
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="TextSubtitle2.Purple">
+        <item name="android:textColor">@color/secondary_purple</item>
+    </style>
+
+    <style name="TextSubtitle2.Grey">
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
+    <style name="TextSubtitle2.Black.Medium">
+        <item name="android:fontFamily">@font/noto_sans_medium</item>
+    </style>
+
+    <style name="TextSubtitle2.Black.Bold">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+    </style>
+
+    <style name="TextSubtitle2.Blue.Medium">
+        <item name="android:fontFamily">@font/noto_sans_medium</item>
+    </style>
+
+    <style name="TextSubtitle2.Blue.Bold">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+    </style>
+
+    <style name="TextSubtitle2.Accent.Normal">
+        <item name="android:fontFamily">@font/noto_sans_medium</item>
+    </style>
+
+    <style name="TextSubtitle2.Accent.Bold">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+    </style>
+
+    <style name="TextSubtitle2.White.Medium">
+        <item name="android:fontFamily">@font/noto_sans_medium</item>
+    </style>
+
+    <style name="TextSubtitle2.White.Bold">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+    </style>
+
+    <style name="TextSubtitle2.Purple.Normal">
+        <item name="android:fontFamily">@font/noto_sans_medium</item>
+    </style>
+
+    <style name="TextSubtitle2.Purple.Bold">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+    </style>
+
+    <style name="TextSubtitle2.Grey.Normal">
+        <item name="android:fontFamily">@font/noto_sans_medium</item>
+    </style>
+
+    <style name="TextSubtitle2.Grey.Bold">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+    </style>
+
+</resources>
