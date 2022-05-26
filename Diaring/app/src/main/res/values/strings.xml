@@ -13,4 +13,9 @@
     <string name="thursday">목</string>
     <string name="friday">금</string>
     <string name="saturday">토</string>
+    <string name="very_good">Very Good</string>
+    <string name="good">Good</string>
+    <string name="fine">Fine</string>
+    <string name="bad">Bad</string>
+    <string name="very_bad">Very Bad</string>
 </resources>

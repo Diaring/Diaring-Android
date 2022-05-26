@@ -1,24 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.calendar.CalendarFragment">
 
     <data>
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="캘린더 화면"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_calendar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_calendar_month" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_calendar">
+
+                <ImageView
+                    android:id="@+id/iv_very_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_very_good_24"
+                    app:layout_constraintDimensionRatio="w, 1:1"
+                    app:layout_constraintEnd_toStartOf="@id/tv_very_good"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_very_good"
+                    style="@style/TextSubtitle2.Blue.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/very_good"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_very_good"
+                    app:layout_constraintEnd_toStartOf="@id/iv_bad"
+                    app:layout_constraintStart_toEndOf="@id/iv_very_good"
+                    app:layout_constraintTop_toTopOf="@id/iv_very_good" />
+
+                <ImageView
+                    android:id="@+id/iv_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/ic_good_24"
+                    app:layout_constraintDimensionRatio="w, 1:1"
+                    app:layout_constraintStart_toStartOf="@id/iv_very_good"
+                    app:layout_constraintTop_toBottomOf="@id/iv_very_good" />
+
+                <TextView
+                    android:id="@+id/tv_good"
+                    style="@style/TextSubtitle2.Blue.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/good"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_good"
+                    app:layout_constraintStart_toEndOf="@id/iv_good"
+                    app:layout_constraintTop_toTopOf="@id/iv_good" />
+
+                <ImageView
+                    android:id="@+id/iv_fine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/ic_fine_24"
+                    app:layout_constraintDimensionRatio="w, 1:1"
+                    app:layout_constraintStart_toStartOf="@id/iv_good"
+                    app:layout_constraintTop_toBottomOf="@id/iv_good" />
+
+                <TextView
+                    android:id="@+id/tv_fine"
+                    style="@style/TextSubtitle2.Blue.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/fine"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_fine"
+                    app:layout_constraintStart_toEndOf="@id/iv_fine"
+                    app:layout_constraintTop_toTopOf="@id/iv_fine" />
+
+                <ImageView
+                    android:id="@+id/iv_bad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:src="@drawable/ic_bad_24"
+                    app:layout_constraintDimensionRatio="w, 1:1"
+                    app:layout_constraintEnd_toStartOf="@id/tv_bad"
+                    app:layout_constraintStart_toEndOf="@id/tv_very_good"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_bad"
+                    style="@style/TextSubtitle2.Blue.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/bad"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_bad"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_bad"
+                    app:layout_constraintTop_toTopOf="@id/iv_bad" />
+
+                <ImageView
+                    android:id="@+id/iv_very_bad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/ic_very_bad_24"
+                    app:layout_constraintDimensionRatio="w, 1:1"
+                    app:layout_constraintStart_toStartOf="@id/iv_bad"
+                    app:layout_constraintTop_toBottomOf="@id/iv_bad" />
+
+                <TextView
+                    android:id="@+id/tv_very_bad"
+                    style="@style/TextSubtitle2.Blue.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/very_bad"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_very_bad"
+                    app:layout_constraintStart_toEndOf="@id/iv_very_bad"
+                    app:layout_constraintTop_toTopOf="@id/iv_very_bad" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
