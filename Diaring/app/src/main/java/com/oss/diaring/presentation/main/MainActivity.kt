@@ -17,13 +17,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val btnOpenNew = findViewById<Button>(R.id.gotosignBtn)
-        btnOpenNew.setOnClickListener {
-            val intent = Intent(this,SignUpActivity::class.java)
-            startActivity(intent)
-        }
-
-
         initBottomNavigationView()
         setBottomNavigationVisibility()
     }
