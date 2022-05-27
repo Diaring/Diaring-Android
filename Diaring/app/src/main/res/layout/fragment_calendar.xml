@@ -8,147 +8,62 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_calendar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_calendar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/item_calendar_month" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_expand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/primary_blue"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add_24"
+            app:tint="@color/white" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_calendar">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="@color/secondary_purple"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/fab_expand"
+            app:layout_constraintEnd_toEndOf="@id/fab_expand"
+            app:srcCompat="@drawable/ic_create_24"
+            app:tint="@color/white" />
 
-                <ImageView
-                    android:id="@+id/iv_very_good"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_very_good_24"
-                    app:layout_constraintDimensionRatio="w, 1:1"
-                    app:layout_constraintEnd_toStartOf="@id/tv_very_good"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="@color/secondary_purple"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/fab_create"
+            app:layout_constraintEnd_toEndOf="@id/fab_create"
+            app:srcCompat="@drawable/ic_question_24"
+            app:tint="@color/white" />
 
-                <TextView
-                    android:id="@+id/tv_very_good"
-                    style="@style/TextSubtitle2.Blue.Medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/very_good"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_very_good"
-                    app:layout_constraintEnd_toStartOf="@id/iv_bad"
-                    app:layout_constraintStart_toEndOf="@id/iv_very_good"
-                    app:layout_constraintTop_toTopOf="@id/iv_very_good" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/iv_good"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:src="@drawable/ic_good_24"
-                    app:layout_constraintDimensionRatio="w, 1:1"
-                    app:layout_constraintStart_toStartOf="@id/iv_very_good"
-                    app:layout_constraintTop_toBottomOf="@id/iv_very_good" />
-
-                <TextView
-                    android:id="@+id/tv_good"
-                    style="@style/TextSubtitle2.Blue.Medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/good"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_good"
-                    app:layout_constraintStart_toEndOf="@id/iv_good"
-                    app:layout_constraintTop_toTopOf="@id/iv_good" />
-
-                <ImageView
-                    android:id="@+id/iv_fine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:src="@drawable/ic_fine_24"
-                    app:layout_constraintDimensionRatio="w, 1:1"
-                    app:layout_constraintStart_toStartOf="@id/iv_good"
-                    app:layout_constraintTop_toBottomOf="@id/iv_good" />
-
-                <TextView
-                    android:id="@+id/tv_fine"
-                    style="@style/TextSubtitle2.Blue.Medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/fine"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_fine"
-                    app:layout_constraintStart_toEndOf="@id/iv_fine"
-                    app:layout_constraintTop_toTopOf="@id/iv_fine" />
-
-                <ImageView
-                    android:id="@+id/iv_bad"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:src="@drawable/ic_bad_24"
-                    app:layout_constraintDimensionRatio="w, 1:1"
-                    app:layout_constraintEnd_toStartOf="@id/tv_bad"
-                    app:layout_constraintStart_toEndOf="@id/tv_very_good"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_bad"
-                    style="@style/TextSubtitle2.Blue.Medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/bad"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_bad"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_bad"
-                    app:layout_constraintTop_toTopOf="@id/iv_bad" />
-
-                <ImageView
-                    android:id="@+id/iv_very_bad"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:src="@drawable/ic_very_bad_24"
-                    app:layout_constraintDimensionRatio="w, 1:1"
-                    app:layout_constraintStart_toStartOf="@id/iv_bad"
-                    app:layout_constraintTop_toBottomOf="@id/iv_bad" />
-
-                <TextView
-                    android:id="@+id/tv_very_bad"
-                    style="@style/TextSubtitle2.Blue.Medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/very_bad"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_very_bad"
-                    app:layout_constraintStart_toEndOf="@id/iv_very_bad"
-                    app:layout_constraintTop_toTopOf="@id/iv_very_bad" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
 
 </layout>
