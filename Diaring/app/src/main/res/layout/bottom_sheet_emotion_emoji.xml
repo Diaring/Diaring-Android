@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="56dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/ic_close_24"
+            android:backgroundTint="@color/dark_grey"
+            app:layout_constraintDimensionRatio="w, 1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_emotion_title"
+            style="@style/TextHeadline.Grey.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/emotion_description"
+            app:layout_constraintBottom_toBottomOf="@id/btn_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_close" />
+
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_emotion_title" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_very_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/ic_very_good_24"
+            app:layout_constraintDimensionRatio="w, 1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_divider" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_very_good"
+            style="@style/TextSubtitle2.Blue.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="@string/very_good"
+            app:layout_constraintBottom_toBottomOf="@id/iv_very_good"
+            app:layout_constraintStart_toEndOf="@id/iv_very_good"
+            app:layout_constraintTop_toTopOf="@id/iv_very_good" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/ic_good_24"
+            app:layout_constraintDimensionRatio="w, 1:1"
+            app:layout_constraintStart_toStartOf="@id/iv_very_good"
+            app:layout_constraintTop_toBottomOf="@id/iv_very_good" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_good"
+            style="@style/TextSubtitle2.Blue.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="@string/good"
+            app:layout_constraintBottom_toBottomOf="@id/iv_good"
+            app:layout_constraintStart_toEndOf="@id/iv_good"
+            app:layout_constraintTop_toTopOf="@id/iv_good" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_fine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/ic_fine_24"
+            app:layout_constraintDimensionRatio="w, 1:1"
+            app:layout_constraintStart_toStartOf="@id/iv_good"
+            app:layout_constraintTop_toBottomOf="@id/iv_good" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_fine"
+            style="@style/TextSubtitle2.Blue.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="@string/fine"
+            app:layout_constraintBottom_toBottomOf="@id/iv_fine"
+            app:layout_constraintStart_toEndOf="@id/iv_fine"
+            app:layout_constraintTop_toTopOf="@id/iv_fine" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_bad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/ic_bad_24"
+            app:layout_constraintDimensionRatio="w, 1:1"
+            app:layout_constraintStart_toStartOf="@id/iv_fine"
+            app:layout_constraintTop_toBottomOf="@id/iv_fine" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_bad"
+            style="@style/TextSubtitle2.Blue.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="@string/bad"
+            app:layout_constraintBottom_toBottomOf="@id/iv_bad"
+            app:layout_constraintStart_toEndOf="@id/iv_bad"
+            app:layout_constraintTop_toTopOf="@id/iv_bad" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_very_bad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/ic_very_bad_24"
+            app:layout_constraintDimensionRatio="w, 1:1"
+            app:layout_constraintStart_toStartOf="@id/iv_bad"
+            app:layout_constraintTop_toBottomOf="@id/iv_bad" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_very_bad"
+            style="@style/TextSubtitle2.Blue.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="@string/good"
+            app:layout_constraintBottom_toBottomOf="@id/iv_very_bad"
+            app:layout_constraintStart_toEndOf="@id/iv_very_bad"
+            app:layout_constraintTop_toTopOf="@id/iv_very_bad" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
