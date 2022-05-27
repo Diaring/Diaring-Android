@@ -24,19 +24,18 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
         auth = Firebase.auth
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
 
         Toast.makeText(this,auth.currentUser?.uid.toString(), Toast.LENGTH_SHORT).show()
 
         //binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        val signupBtnClicked = findViewById<Button>(R.id.signupBtn)
+        val signupBtnClicked = findViewById<Button>(R.id.btn_signupbtn)
         signupBtnClicked.setOnClickListener{
 
             // 첫번째 방법
-            val email = findViewById<EditText>(R.id.idArea)
-            val pwd = findViewById<EditText>(R.id.pwdArea)
-            val name = findViewById<EditText>(R.id.nameArea)
+            val email = findViewById<EditText>(R.id.et_idarea)
+            val pwd = findViewById<EditText>(R.id.et_pwdarea)
+            val name = findViewById<EditText>(R.id.et_namearea)
 
             // 두번째 방법
             //val email = binding.emailArea
@@ -48,9 +47,9 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
             )
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this,"ok", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"회원가입 성공", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this,"no", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"회원가입 실패", Toast.LENGTH_SHORT).show()
                     }
                 }
 

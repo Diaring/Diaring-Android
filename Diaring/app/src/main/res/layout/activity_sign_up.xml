@@ -9,32 +9,34 @@
         tools:context=".presentation.signup.SignUpActivity">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_diaring_logo" />
+            android:background="@drawable/ic_diaring_logo" />
 
         <EditText
-            android:id="@+id/idArea"
+            android:id="@+id/et_idarea"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:background="@drawable/bg_rectangle"
             android:textSize="20dp"
-            android:hint="아이디를 입력하세요"
+            android:hint="이메일을 입력하세요"
             android:paddingStart="10dp"
-            app:layout_constraintDimensionRatio="9"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintDimensionRatio="7"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
 
         <EditText
-            android:id="@+id/pwdArea"
+            android:id="@+id/et_pwdarea"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -42,42 +44,46 @@
             android:textSize="20dp"
             android:hint="비밀번호를 입력하세요"
             android:paddingStart="10dp"
-            app:layout_constraintDimensionRatio="9"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintDimensionRatio="7"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idArea" />
+            app:layout_constraintTop_toBottomOf="@+id/et_idarea" />
 
         <EditText
-            android:id="@+id/nameArea"
+            android:id="@+id/et_namearea"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="@drawable/bg_rectangle"
-            android:textSize="20dp"
             android:hint="닉네임을 입력하세요"
             android:paddingStart="10dp"
-            app:layout_constraintDimensionRatio="9"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:textSize="20dp"
+            app:layout_constraintDimensionRatio="7"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pwdArea" />
+            app:layout_constraintTop_toBottomOf="@+id/et_pwdarea" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/signupBtn"
+            android:id="@+id/btn_signupbtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="100dp"
             android:background="@drawable/bg_rectangle2"
-            android:textSize="20dp"
             android:text="회원가입"
             android:textColor="@color/white"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameArea" />
+            app:layout_constraintTop_toBottomOf="@+id/et_namearea" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
