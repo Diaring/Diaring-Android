@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Custom TextHeadline default 18sp -->
+    <!-- Custom TextHeadline default 18dp -->
     <style name="TextHeadline">
         <item name="android:textSize" tools:ignore="SpUsage">18dp</item>
         <item name="android:includeFontPadding">false</item>
@@ -14,6 +14,10 @@
         <item name="android:textColor">@color/primary_blue</item>
     </style>
 
+    <style name="TextHeadline.Grey">
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
     <style name="TextHeadline.Black.Bold">
         <item name="android:fontFamily">@font/noto_sans_bold</item>
     </style>
@@ -22,7 +26,15 @@
         <item name="android:fontFamily">@font/noto_sans_bold</item>
     </style>
 
-    <!-- TextMedium default 14sp -->
+    <style name="TextHeadline.Grey.Medium">
+        <item name="android:fontFamily">@font/noto_sans_medium</item>
+    </style>
+
+    <style name="TextHeadline.Grey.Bold">
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+    </style>
+
+    <!-- TextMedium default 14dp -->
     <style name="TextSubtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:includeFontPadding">false</item>
         <item name="android:textSize" tools:ignore="SpUsage">14dp</item>

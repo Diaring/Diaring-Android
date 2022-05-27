@@ -12,5 +12,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="bottomSheetDialogTheme">@style/DiaringBottomSheetDialogTheme</item>
+    </style>
+
+    <style name="DiaringBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/DiaringModalStyle</item>
+    </style>
+
+    <style name="DiaringModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_emoji_bottom_sheet</item>
     </style>
 </resources>

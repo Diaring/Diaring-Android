@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.oss.diaring.DiaringApplication
 import com.oss.diaring.R
 import com.oss.diaring.databinding.FragmentCalendarBinding
 import com.oss.diaring.presentation.base.BaseFragment
@@ -15,10 +17,30 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
 
     private val monthAdapter: MonthAdapter by lazy { MonthAdapter() }
     private val pagerSnapHelper: PagerSnapHelper by lazy { PagerSnapHelper() }
-    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(requireActivity(), R.anim.fab_from_bottom)}
-    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(requireActivity(), R.anim.fab_to_bottom)}
-    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireActivity(), R.anim.fab_rotate_open)}
-    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(requireActivity(), R.anim.fab_rotate_close)}
+    private val fromBottom: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            requireActivity(),
+            R.anim.fab_from_bottom
+        )
+    }
+    private val toBottom: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            requireActivity(),
+            R.anim.fab_to_bottom
+        )
+    }
+    private val rotateOpen: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            requireActivity(),
+            R.anim.fab_rotate_open
+        )
+    }
+    private val rotateClose: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            requireActivity(),
+            R.anim.fab_rotate_close
+        )
+    }
 
     private var isFabClicked: Boolean = false
 
@@ -27,15 +49,6 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
 
         initCalendarRecyclerView()
         bindViews()
-    }
-
-    private fun bindViews() {
-        binding.fabExpand.setOnClickListener {
-            setFabVisibility(isFabClicked)
-            setFabAnimation(isFabClicked)
-
-            isFabClicked = !isFabClicked
-        }
     }
 
     private fun initCalendarRecyclerView() {
@@ -51,6 +64,29 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
         pagerSnapHelper.attachToRecyclerView(binding.rvCalendar)
     }
 
+    private fun bindViews() {
+        binding.fabExpand.setOnClickListener {
+            setFabVisibility(isFabClicked)
+            setFabAnimation(isFabClicked)
+
+            isFabClicked = !isFabClicked
+        }
+
+        binding.fabInfo.setOnClickListener {
+            // Bottom Sheet
+            val emotionEmojiBottomSheetDialog = EmotionEmojiBottomSheetDialog()
+            emotionEmojiBottomSheetDialog.show(
+                childFragmentManager,
+                emotionEmojiBottomSheetDialog.tag
+            )
+        }
+
+        binding.fabCreate.setOnClickListener {
+            // 일기 생성 Fragment 이동
+            Toast.makeText(DiaringApplication.appContext, "T", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun setFabAnimation(isFabClicked: Boolean) {
         if (!isFabClicked) {
             binding.fabInfo.startAnimation(fromBottom)
@@ -60,6 +96,10 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
             binding.fabInfo.startAnimation(toBottom)
             binding.fabCreate.startAnimation(toBottom)
             binding.fabExpand.startAnimation(rotateClose)
+
+            toBottom.fillAfter = false  // View.GONE 상태에서 FAB 클릭 가능한 이슈 해결
+            rotateClose.fillAfter = false
+
         }
     }
 

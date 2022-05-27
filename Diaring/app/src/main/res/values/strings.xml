@@ -18,4 +18,5 @@
     <string name="fine">Fine</string>
     <string name="bad">Bad</string>
     <string name="very_bad">Very Bad</string>
+    <string name="emotion_description">감정 이모지 종류</string>
 </resources>
