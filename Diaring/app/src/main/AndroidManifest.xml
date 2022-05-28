@@ -11,8 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Diaring">
         <activity
+            android:name=".presentation.login.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.main.MainActivity"
-            android:exported="true">
+            android:exported="false" />
+        <activity
+            android:name=".presentation.splashScreen.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Diaring.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

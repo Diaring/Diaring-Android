@@ -22,4 +22,8 @@
     <style name="DiaringModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_emoji_bottom_sheet</item>
     </style>
+
+    <style name="Theme.Diaring.Splash">
+        <item name="android:windowBackground">@drawable/background_splash_screen</item>
+    </style>
 </resources>
