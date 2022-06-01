@@ -10,14 +10,17 @@
         android:roundIcon="@mipmap/ic_diaring_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Diaring">
+      
+<!--        <activity-->
+<!--            android:name=".presentation.login.LoginActivity"-->
+<!--            android:exported="false" />-->
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.signup.SignUpActivity"
             android:exported="true">
         </activity>
-
-<!--         <activity
-            android:name=".presentation.login.LoginActivity"
-            android:exported="false" /> -->
       
         <activity
             android:name=".presentation.splashScreen.SplashActivity"
