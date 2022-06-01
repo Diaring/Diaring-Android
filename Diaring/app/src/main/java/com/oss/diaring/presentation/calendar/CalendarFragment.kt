@@ -83,7 +83,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
 
         binding.fabCreate.setOnClickListener {
             // 일기 생성 Fragment 이동
-            Toast.makeText(DiaringApplication.appContext, "T", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), "T", Toast.LENGTH_SHORT).show()
         }
     }
 
