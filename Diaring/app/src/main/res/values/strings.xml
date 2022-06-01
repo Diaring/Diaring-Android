@@ -19,4 +19,17 @@
     <string name="bad">Bad</string>
     <string name="very_bad">Very Bad</string>
     <string name="emotion_description">감정 이모지 종류</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="onboarding">앱 사용하기</string>
+    <string name="onboarding_calender">캘린더</string>
+    <string name="onboarding_calender_text">캘린더에서 자신의 감정들을 확인하고 날짜를 눌러 일\n기를 작성할 수 있어요.</string>
+    <string name="btn_text">앱 시작하기</string>
+    <string name="onboarding_diary">일기작성</string>
+    <string name="onboarding_diary_text">제목, 날짜, 위치, 기분, 사진, 해시태그 등을 넣어\n일기를 작성할 수 있습니다.</string>
+    <string name="onboarding_diaryview">일기보기</string>
+    <string name="onboarding_diaryview_text">내가 작성한 일기를 위와 같은 화면으로 다시 확인할\n수 있습니다.</string>
+    <string name="onboarding_chart">그래프</string>
+    <string name="onboarding_chart_text">한달 간의 나의 기분과 날씨를 그래프를 통해 한눈에\n볼 수 있습니다.</string>
+    <string name="onboarding_skip">앱 시작하기</string>
 </resources>
