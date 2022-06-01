@@ -4,4 +4,19 @@
     <string name="navigation_calendar">캘린더</string>
     <string name="navigation_dashboard">대시보드</string>
     <string name="navigation_mypage">마이페이지</string>
+    <string name="current_date_background_description">기본배경</string>
+    <string name="current_date_focus_background_description">포커스배경</string>
+    <string name="sunday">일</string>
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="thursday">목</string>
+    <string name="friday">금</string>
+    <string name="saturday">토</string>
+    <string name="very_good">Very Good</string>
+    <string name="good">Good</string>
+    <string name="fine">Fine</string>
+    <string name="bad">Bad</string>
+    <string name="very_bad">Very Bad</string>
+    <string name="emotion_description">감정 이모지 종류</string>
 </resources>
