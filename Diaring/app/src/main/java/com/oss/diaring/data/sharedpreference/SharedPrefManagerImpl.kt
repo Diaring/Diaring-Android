@@ -1,7 +1,7 @@
 package com.oss.diaring.data.sharedpreference
 
 import android.content.Context
-import com.oss.diaring.util.PREF_FILE_NAME
+import com.oss.diaring.util.Constants.PREF_FILE_NAME
 
 class SharedPrefManagerImpl(private val context: Context) : SharedPrefManager {
 
