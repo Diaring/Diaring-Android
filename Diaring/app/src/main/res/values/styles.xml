@@ -18,6 +18,10 @@
         <item name="android:textColor">@color/dark_grey</item>
     </style>
 
+    <style name="TextHeadline.White">
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
     <style name="TextHeadline.Black.Bold">
         <item name="android:fontFamily">@font/noto_sans_bold</item>
     </style>

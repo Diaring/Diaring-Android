@@ -15,6 +15,11 @@
             app:destination="@id/navigation_dashboard" />
     </fragment>
     <fragment
+        android:id="@+id/navigation_diary"
+        android:name="com.oss.diaring.presentation.diary.DiaryFragment"
+        android:label="fragment_diary"
+        tools:layout="@layout/fragment_diary" />
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.oss.diaring.presentation.dashboard.DashboardFragment"
         android:label="fragment_dashboard"

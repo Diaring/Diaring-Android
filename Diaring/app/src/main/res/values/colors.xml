@@ -23,4 +23,13 @@
     <color name="grey">#ABABAE</color>
     <color name="light_grey">#F7F7F7</color>
 
+    <color name="transparency_0">#00FFFFFF</color>
+    <color name="transparency_25">#40FFFFFF</color>
+    <color name="transparency_50">#80FFFFFF</color>
+    <color name="transparency_75">#BFFFFFFF</color>
+
+    <color name="gradient_start">#404040</color>
+    <color name="gradient_center">#808080</color>
+    <color name="gradient_end">#ffffff</color>
+
 </resources>

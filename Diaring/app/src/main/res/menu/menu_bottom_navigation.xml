@@ -8,6 +8,12 @@
         app:font="@font/noto_sans_medium" />
 
     <item
+        android:id="@+id/navigation_diary"
+
+        android:title="일기"
+        app:font="@font/noto_sans_medium" />
+
+    <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_dashboard_24"
         android:title="@string/navigation_dashboard"
@@ -18,4 +24,5 @@
         android:icon="@drawable/ic_my_page_24"
         android:title="@string/navigation_mypage"
         app:font="@font/noto_sans_medium" />
+
 </menu>

@@ -36,3 +36,4 @@
             app:menu="@menu/menu_bottom_navigation" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
