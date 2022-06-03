@@ -1,26 +1,21 @@
 package com.oss.diaring
 
 import android.app.Application
-import android.content.Context
+import com.oss.diaring.data.sharedpreference.SharedPrefManagerImpl
 import timber.log.Timber
 
 class DiaringApplication : Application() {
+    lateinit var sharedPreferences: SharedPrefManagerImpl
+
     override fun onCreate() {
         super.onCreate()
-        appContext = this
+
+        sharedPreferences = SharedPrefManagerImpl(applicationContext)
+
         setUpTimber()
     }
 
-    override fun onTerminate() {
-        super.onTerminate()
-        appContext = null
-    }
     private fun setUpTimber() {
         Timber.plant(Timber.DebugTree())
-    }
-
-    companion object {
-        var appContext: Context? = null
-            private set
     }
 }
