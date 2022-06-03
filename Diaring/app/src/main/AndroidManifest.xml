@@ -35,9 +35,6 @@
         </activity>
 
         <activity
-            android:name=".presentation.main.MainActivity"
-            android:exported="true" />
-        <activity
             android:name=".presentation.Onboarding.OnboardingActivity"
             android:exported="true" />
 
