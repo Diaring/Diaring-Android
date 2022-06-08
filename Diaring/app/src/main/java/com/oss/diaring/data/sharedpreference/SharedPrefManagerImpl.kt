@@ -37,6 +37,3 @@ class SharedPrefManagerImpl(private val context: Context) : SharedPrefManager {
         return preference.getString(key, "")
     }
 }
-
-
-

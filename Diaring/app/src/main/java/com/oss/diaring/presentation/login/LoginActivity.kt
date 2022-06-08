@@ -25,13 +25,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
 
+        sharedPreferences = SharedPrefManagerImpl(this)
+
         getIntentExtra()
 
         bindViews()
     }
 
     private fun getIntentExtra() {
-        nickname = intent.getStringExtra("NickName").toString()
+        nickname = intent.getStringExtra("user_nickname").toString()
     }
 
     private fun bindViews() {
