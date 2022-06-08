@@ -26,4 +26,17 @@ class SharedPrefManagerImpl(private val context: Context) : SharedPrefManager {
     override fun getUserId(key: String): String? {
         return preference.getString(key, "")
     }
+
+    override fun setEmail(key: String, value: String) {
+        preference.edit()
+            .putString(key, value)
+            .apply()
+    }
+
+    override fun getEmail(key: String): String? {
+        return preference.getString(key, "")
+    }
 }
+
+
+
