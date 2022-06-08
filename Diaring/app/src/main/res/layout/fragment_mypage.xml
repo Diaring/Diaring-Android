@@ -12,11 +12,68 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <ImageView
+            android:id="@+id/iv_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="마이페이지 화면"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/ic_diaring_logo" />
+
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:hint="닉네임"
+            android:textColor="@color/primary_blue"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:hint="유저이메일"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_ossbtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@color/white"
+            android:text="오픈소스 라이센스"
+            android:textColor="@color/primary_blue"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_logoutbtn"
+            app:layout_constraintStart_toStartOf="@+id/btn_logoutbtn"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_logoutbtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/bg_rectangle2"
+            android:text="로그아웃"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
