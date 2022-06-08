@@ -9,8 +9,4 @@ interface SharedPrefManager {
     fun setUserId(key: String, value: String)
 
     fun getUserId(key: String): String?
-
-    fun setEmail(key: String, value: String)
-
-    fun getEmail(key: String): String?
 }
