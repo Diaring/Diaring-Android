@@ -2,10 +2,15 @@ package com.oss.diaring.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.oss.diaring.R
 import com.oss.diaring.data.sharedpreference.SharedPrefManagerImpl
@@ -88,6 +93,26 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         if (user != null) {
             sharedPreferences.setEmail(Constants.USER_EMAIL, email)
             sharedPreferences.setNickName(Constants.USER_NICKNAME, nickname)
+            if(sharedPreferences.getNickName("user_nickname") == "null") {
+                val database = Firebase.database
+                val myRef = database.getReference().child("users").child(Firebase.auth.currentUser!!.uid)
+                myRef.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var cnt = 0
+                        for(datamodel in snapshot.children) {
+                            if(cnt==0)
+                            {
+                                cnt = cnt + 1
+                            }
+                            else
+                            {
+                                sharedPreferences.setNickName(Constants.USER_NICKNAME, datamodel.getValue().toString())
+                            }
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) { }
+                })
+            }
             sharedPreferences.setUserId(Constants.FIREBASE_UID, user.uid)
 
             val intent = Intent(this, MainActivity::class.java)
