@@ -19,7 +19,9 @@ import com.oss.diaring.presentation.base.BaseActivity
 import com.oss.diaring.presentation.main.MainActivity
 import com.oss.diaring.presentation.signup.SignUpActivity
 import com.oss.diaring.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private var auth: FirebaseAuth? = null
 
@@ -29,6 +31,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+        sharedPreferences = SharedPrefManagerImpl(this)
 
         sharedPreferences = SharedPrefManagerImpl(this)
 

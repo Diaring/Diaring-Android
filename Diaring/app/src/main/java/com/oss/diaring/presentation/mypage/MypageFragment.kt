@@ -1,17 +1,9 @@
 package com.oss.diaring.presentation.mypage
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -20,16 +12,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.oss.diaring.DiaringApplication
 import com.oss.diaring.R
 import com.oss.diaring.data.sharedpreference.SharedPrefManagerImpl
 import com.oss.diaring.databinding.FragmentMypageBinding
 import com.oss.diaring.presentation.base.BaseFragment
-import com.oss.diaring.presentation.main.MainActivity
-import com.oss.diaring.presentation.signup.SignUpActivity
 import com.oss.diaring.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
     private lateinit var auth: FirebaseAuth

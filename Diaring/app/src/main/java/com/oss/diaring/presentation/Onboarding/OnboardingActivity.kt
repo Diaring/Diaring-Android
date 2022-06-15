@@ -9,9 +9,10 @@ import com.oss.diaring.R
 import com.oss.diaring.databinding.ActivityOnboardingBinding
 import com.oss.diaring.presentation.base.BaseActivity
 import com.oss.diaring.presentation.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 
-
+@AndroidEntryPoint
 class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>(R.layout.activity_onboarding) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
