@@ -7,7 +7,7 @@ data class DayWithEmojiAndSelect(
     val dailyEmoji: List<DailyEmojis>,
     val isSelected: Boolean
 ) {
-    val emoji = dailyEmoji.map {
-        it.emoji.name
+    val emojiState = dailyEmoji.map {
+        it.emojiState.name
     }
 }

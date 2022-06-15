@@ -39,7 +39,7 @@ class CalendarDayAdapter(private val dayClickCallback: (Int) -> (Unit)) :
 
                 binding.ivEmoji.visibility = View.VISIBLE
 
-                when (item.emoji.firstOrNull()) {
+                when (item.emojiState.firstOrNull()) {
                     "VERY_BAD" -> binding.ivEmoji.setImageResource(R.drawable.ic_very_bad_24)  // very bad
                     "BAD" -> binding.ivEmoji.setImageResource(R.drawable.ic_bad_24)  // bad
                     "FINE" -> binding.ivEmoji.setImageResource(R.drawable.ic_fine_24)  // fine

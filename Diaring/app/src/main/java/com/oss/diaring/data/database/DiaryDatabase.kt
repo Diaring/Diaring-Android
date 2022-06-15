@@ -8,9 +8,10 @@ import com.oss.diaring.data.database.converter.DateConverter
 import com.oss.diaring.data.database.converter.ListConverter
 import com.oss.diaring.data.database.dao.DiaryDao
 import com.oss.diaring.data.database.entity.DailyEmojis
+import com.oss.diaring.data.database.entity.DailyWeather
 import com.oss.diaring.data.database.entity.Diary
 
-@Database(version = 1, entities = [Diary::class, DailyEmojis::class], exportSchema = false)
+@Database(version = 1, entities = [Diary::class, DailyEmojis::class, DailyWeather::class], exportSchema = false)
 @TypeConverters(
     value = [
         ListConverter::class,

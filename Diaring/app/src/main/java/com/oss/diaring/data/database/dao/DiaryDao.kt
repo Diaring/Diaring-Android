@@ -2,6 +2,8 @@ package com.oss.diaring.data.database.dao
 
 import androidx.room.*
 import com.oss.diaring.data.database.entity.DailyEmojis
+import com.oss.diaring.data.database.entity.DailyWeather
+import com.oss.diaring.data.database.entity.Diary
 
 @Dao
 interface DiaryDao {
@@ -25,4 +27,19 @@ interface DiaryDao {
 
     @Query("SELECT * FROM DailyEmojis")
     suspend fun getAllDailyEmojis(): List<DailyEmojis>
+
+    @Query("SELECT * FROM DailyWeather")
+    suspend fun getAllDailyWeather(): List<DailyWeather>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertDiary(diary: Diary): Long
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertDailyDiary(dailyEmojis: DailyEmojis)
+
+    @Update
+    suspend fun updateDiary(diary: Diary)
+
+    @Query("SELECT * FROM `diary_database.db` WHERE `no`=:id")
+    suspend fun getDiaryById(id: Int): Diary
 }
