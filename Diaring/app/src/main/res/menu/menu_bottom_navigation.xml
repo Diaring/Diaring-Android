@@ -8,10 +8,18 @@
         app:font="@font/noto_sans_medium" />
 
     <item
-        android:id="@+id/navigation_diary"
+        android:id="@+id/navigation_diary_list"
+        android:icon="@drawable/ic_diary_24"
+        android:title="일기 목록"
+        app:font="@font/noto_sans_medium" />
 
+    <!--
+    <item
+        android:id="@+id/navigation_diary"
+        android:icon="@drawable/ic_diary_24"
         android:title="일기"
         app:font="@font/noto_sans_medium" />
+    -->
 
     <item
         android:id="@+id/navigation_dashboard"
