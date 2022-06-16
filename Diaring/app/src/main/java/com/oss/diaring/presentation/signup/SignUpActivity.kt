@@ -19,8 +19,10 @@ import com.oss.diaring.presentation.base.BaseActivity
 import com.oss.diaring.databinding.ActivitySignUpBinding
 import com.oss.diaring.presentation.login.LoginActivity
 import com.oss.diaring.presentation.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sign_up){
 
     private lateinit var auth: FirebaseAuth

@@ -9,4 +9,6 @@ object Constants {
     const val FIREBASE_UID = "user_id"
     const val USER_NICKNAME = "user_nickname"
     const val USER_EMAIL = "user_email"
+
+    const val EMPTY_DATE = 0
 }

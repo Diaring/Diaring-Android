@@ -1,22 +1,38 @@
-package com.oss.diaring.presentation.calendar
+package com.oss.diaring.presentation.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import com.oss.diaring.DiaringApplication
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.oss.diaring.R
-import com.oss.diaring.databinding.FragmentCalendarBinding
+import com.oss.diaring.databinding.FragmentHomeBinding
 import com.oss.diaring.presentation.base.BaseFragment
-import com.oss.diaring.presentation.calendar.adapter.MonthAdapter
+import com.oss.diaring.presentation.home.calendar.EmotionEmojiBottomSheetDialog
+import com.oss.diaring.presentation.home.calendar.adapter.CalendarAdapter
+import com.oss.diaring.util.DayClickListener
+import com.oss.diaring.util.EmojiSwipeListener
+import com.oss.diaring.util.MonthSwipeListener
+import com.oss.diaring.util.TodayClickListener
+import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
 
-class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment_calendar) {
+@AndroidEntryPoint
+class HomeFragment : BaseFragment<FragmentHomeBinding>(
+    R.layout.fragment_home
+), DayClickListener, MonthSwipeListener {
 
-    private val monthAdapter: MonthAdapter by lazy { MonthAdapter() }
-    private val pagerSnapHelper: PagerSnapHelper by lazy { PagerSnapHelper() }
+    private lateinit var calendarAdapter: CalendarAdapter
+
+    private val homeViewModel: HomeViewModel by viewModels()
+    private lateinit var todayClickListener: TodayClickListener
+    private lateinit var emojiSwipeListener: EmojiSwipeListener
+
     private val fromBottom: Animation by lazy {
         AnimationUtils.loadAnimation(
             requireActivity(),
@@ -47,21 +63,9 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initCalendarRecyclerView()
         bindViews()
-    }
-
-    private fun initCalendarRecyclerView() {
-        val monthLayoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-
-        binding.rvCalendar.apply {
-            layoutManager = monthLayoutManager
-            adapter = monthAdapter
-            scrollToPosition(Int.MAX_VALUE / 2)
-        }
-
-        pagerSnapHelper.attachToRecyclerView(binding.rvCalendar)
+        initRecyclerView()
+        initObserver()
     }
 
     private fun bindViews() {
@@ -85,6 +89,56 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
             // 일기 생성 Fragment 이동
             Toast.makeText(requireActivity(), "T", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onClick(selectedDate: LocalDate) {
+        val year = selectedDate.year
+        val month = selectedDate.monthValue
+        val date = selectedDate.dayOfMonth
+
+        // ViewModel 업데이트
+        homeViewModel.updateDate(year, month, date)
+    }
+
+    override fun onSwipe() {
+        updateViewPager()
+    }
+
+    private fun initRecyclerView() {
+        calendarAdapter = CalendarAdapter(
+            ::todayClickCallback,
+            childFragmentManager,
+            viewLifecycleOwner.lifecycle
+        )
+
+        binding.rvHome.apply {
+            adapter = calendarAdapter
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        }
+    }
+
+    private fun initObserver() {
+        homeViewModel.date.observe(viewLifecycleOwner) {
+            calendarAdapter.setDate(it)
+            updateViewPager()
+        }
+    }
+
+    private fun todayClickCallback() {
+        todayClickListener.onClick()
+    }
+
+    fun setCalendarListener(calendarFragment: Fragment) {
+        todayClickListener = calendarFragment as TodayClickListener
+        emojiSwipeListener = calendarFragment as EmojiSwipeListener
+    }
+
+    private fun updateViewPager() {
+        val handler = Handler(Looper.getMainLooper())
+        val runnable = Runnable {
+            calendarAdapter.notifyItemChanged(0)
+        }
+        handler.post(runnable)
     }
 
     private fun setFabAnimation(isFabClicked: Boolean) {

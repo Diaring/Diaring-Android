@@ -1,4 +1,4 @@
-package com.oss.diaring.presentation.calendar
+package com.oss.diaring.presentation.home.calendar
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_calendar">
+    app:startDestination="@id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_calendar"
-        android:name="com.oss.diaring.presentation.calendar.CalendarFragment"
+        android:id="@+id/navigation_home"
+        android:name="com.oss.diaring.presentation.home.HomeFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" >
+        tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_calendarFragment_to_dashboardFragment"
+            android:id="@+id/action_homeFragment_to_dashboardFragment"
             app:destination="@id/navigation_dashboard" />
     </fragment>
     <fragment

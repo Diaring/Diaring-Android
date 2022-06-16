@@ -19,10 +19,12 @@ import com.github.mikephil.charting.utils.MPPointF
 import com.oss.diaring.R
 import com.oss.diaring.databinding.FragmentDashboardBinding
 import com.oss.diaring.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+@AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragment_dashboard) {
 
     private lateinit var barChart: BarChart
