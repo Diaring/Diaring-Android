@@ -17,7 +17,9 @@ import com.oss.diaring.databinding.ActivityMainBinding
 import com.oss.diaring.presentation.base.BaseActivity
 import com.oss.diaring.presentation.diary.DiaryListData
 import com.oss.diaring.presentation.signup.SignUpActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun setBottomNavigationVisibility() {
         findNavController().addOnDestinationChangedListener { _, destination, _ ->
             binding.bnvMain.visibility = when (destination.id) {
-                R.id.navigation_calendar, R.id.navigation_diary_list, R.id.navigation_dashboard, R.id.navigation_mypage -> View.VISIBLE
+                R.id.navigation_home, R.id.navigation_diary_list, R.id.navigation_dashboard, R.id.navigation_mypage -> View.VISIBLE
                 else -> View.GONE
             }
         }
