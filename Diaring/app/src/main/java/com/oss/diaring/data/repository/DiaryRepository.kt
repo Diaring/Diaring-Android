@@ -20,4 +20,8 @@ interface DiaryRepository {
     suspend fun updateDiary(diary: Diary, selectedDate: LocalDate)
 
     suspend fun getAllDailyWeather(): List<DailyWeather>
+
+    suspend fun getAllDiaries(): List<Diary>//MutableMap<LocalDate, Diary>
+
+    suspend fun deleteDiary(id: Int)
 }

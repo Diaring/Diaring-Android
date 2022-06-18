@@ -20,19 +20,30 @@
         android:label="fragment_diary"
         tools:layout="@layout/fragment_diary_list">
         <action
-            android:id="@+id/action_to_diaryList"
-            app:destination="@id/navigation_diary_list"
+            android:id="@+id/action_to_diary"
+            app:destination="@id/navigation_diary"
+            />
+        <argument
+            android:name="diary_local_data"
+            app:argType="integer"
+            android:defaultValue="0"
             />
     </fragment>
     <fragment
         android:id="@+id/navigation_diary"
         android:name="com.oss.diaring.presentation.diary.DiaryFragment"
         android:label="fragment_diary"
-        tools:layout="@layout/fragment_diary" />
+        tools:layout="@layout/fragment_diary" >
         <action
-            android:id="@+id/action_to_diary"
-            app:destination="@id/navigation_diary"
+            android:id="@+id/action_to_diary_list"
+            app:destination="@id/navigation_diary_list"
             />
+        <argument
+            android:name="diary_local_data"
+            app:argType="integer"
+            android:defaultValue="0"
+            />
+    </fragment>
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.oss.diaring.presentation.dashboard.DashboardFragment"

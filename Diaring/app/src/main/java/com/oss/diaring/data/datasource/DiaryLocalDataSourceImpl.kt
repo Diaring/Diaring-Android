@@ -53,4 +53,12 @@ class DiaryDataSourceImpl @Inject constructor(
     override suspend fun getAllWeatherList(): List<DailyWeather> {
         return diaryDao.getAllDailyWeather()
     }
+
+    override suspend fun getAllDiaries(): List<Diary> {//MutableMap<LocalDate, Diary> {
+        return diaryDao.getAllDiaries()
+    }
+
+    override suspend fun deleteDiary(id: Int) {
+        return diaryDao.deleteDiary(id)
+    }
 }

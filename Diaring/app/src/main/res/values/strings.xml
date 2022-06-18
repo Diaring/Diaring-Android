@@ -37,7 +37,7 @@
     <string name="diary_save">저장하기</string>
     <string name="diary_edit">편집하기</string>
     <string name="diary_subject">제목을 입력하세요</string>
-    <string name="diary_date">2022년 2월 22일</string>
+    <string name="diary_date">%1$s년 %2$s월 %3$s일</string>
     <string name="diary_place">장소를 입력하세요</string>
     <string name="diary_content">내용을 입력하세요</string>
     <string name="diary_textLength_zero"> 0 / 1000 </string>
@@ -46,6 +46,7 @@
     <string name="diary_popup_removeImage">사진 제거</string>
     <string name="diary_popup_deletePage">페이지 삭제</string>
 
+    <string name="plain_year">년</string>
     <string name="year">%1$d년</string>
     <string name="month">%1$d월</string>
     <string name="day">%1$d일</string>

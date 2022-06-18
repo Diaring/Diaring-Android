@@ -52,7 +52,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
             android:maxLines="1"
-            android:text="@string/diary_date"
+            android:text="2022년 02월 02일"
             android:alpha="0.85"
             app:layout_constraintEnd_toEndOf="@id/diary_subject_text"
             app:layout_constraintStart_toStartOf="@id/diary_subject_text"
@@ -297,9 +297,9 @@
             android:layout_marginEnd="-15dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="22dp"
-            android:max="100"
-            android:min="-100"
-            android:progress="0"
+            android:max="5"
+            android:min="1"
+            android:progress="3"
             android:progressDrawable="@drawable/bg_diary_seekbar_background"
             android:thumb="@drawable/ic_good_32"
             android:alpha="0.75"
@@ -433,6 +433,18 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             tools:ignore="MissingConstraints"/>
+        <!--
+        <ImageView
+            android:id="@+id/diary_fade_in_object"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:clickable="false"
+            android:src="@drawable/bg_diary_main_background"
+            tools:alpha="0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_marginStart="390dp"/>
+        -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

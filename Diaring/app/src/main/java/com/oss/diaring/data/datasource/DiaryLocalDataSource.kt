@@ -21,4 +21,8 @@ interface DiaryDataSource {
     suspend fun updateDiary(diary: Diary, selectedDate: LocalDate)
 
     suspend fun getAllWeatherList(): List<DailyWeather>
+
+    suspend fun getAllDiaries(): List<Diary>//MutableMap<LocalDate, Diary>
+
+    suspend fun deleteDiary(id: Int)
 }
