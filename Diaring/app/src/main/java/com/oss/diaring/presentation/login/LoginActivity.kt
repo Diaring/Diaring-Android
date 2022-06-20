@@ -2,7 +2,6 @@ package com.oss.diaring.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -15,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.oss.diaring.R
 import com.oss.diaring.data.sharedpreference.SharedPrefManagerImpl
 import com.oss.diaring.databinding.ActivityLoginBinding
+import com.oss.diaring.presentation.onboarding.OnboardingActivity
 import com.oss.diaring.presentation.base.BaseActivity
 import com.oss.diaring.presentation.main.MainActivity
 import com.oss.diaring.presentation.signup.SignUpActivity
@@ -33,15 +33,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         auth = Firebase.auth
         sharedPreferences = SharedPrefManagerImpl(this)
 
-        sharedPreferences = SharedPrefManagerImpl(this)
-
         getIntentExtra()
 
         bindViews()
     }
 
     private fun getIntentExtra() {
-        nickname = intent.getStringExtra("user_nickname").toString()
+        nickname = intent.getStringExtra(Constants.USER_NICKNAME).toString()
     }
 
     private fun bindViews() {
@@ -96,19 +94,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         if (user != null) {
             sharedPreferences.setEmail(Constants.USER_EMAIL, email)
             sharedPreferences.setNickName(Constants.USER_NICKNAME, nickname)
-            if(sharedPreferences.getNickName("user_nickname") == "null") {
+            if(sharedPreferences.getNickName(Constants.USER_NICKNAME) == "null") {
                 val database = Firebase.database
                 val myRef = database.getReference().child("users").child(Firebase.auth.currentUser!!.uid)
                 myRef.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         var cnt = 0
                         for(datamodel in snapshot.children) {
-                            if(cnt==0)
-                            {
-                                cnt = cnt + 1
+                            if(cnt==0) {
+                                cnt += 1
                             }
-                            else
-                            {
+                            else {
                                 sharedPreferences.setNickName(Constants.USER_NICKNAME, datamodel.getValue().toString())
                             }
                         }
@@ -117,12 +113,18 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 })
             }
             sharedPreferences.setUserId(Constants.FIREBASE_UID, user.uid)
+            sharedPreferences.setIsLoginFirst(Constants.IS_LOGIN_FIRST, true)
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (sharedPreferences.getIsLoginFirst(Constants.IS_LOGIN_FIRST)) {
+                startActivity(Intent(this, OnboardingActivity::class.java))
+                finish()
+            } else {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
         }
     }
-
 
 }

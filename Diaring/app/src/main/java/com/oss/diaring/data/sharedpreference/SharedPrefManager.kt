@@ -13,4 +13,8 @@ interface SharedPrefManager {
     fun setEmail(key: String, value: String)
 
     fun getEmail(key: String): String?
+
+    fun setIsLoginFirst(key: String, value: Boolean)
+
+    fun getIsLoginFirst(key: String): Boolean
 }

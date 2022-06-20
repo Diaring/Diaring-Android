@@ -6,9 +6,10 @@ object Constants {
 
     // SharedPreferences
     const val PREF_FILE_NAME = "Diaring_Preferences"
-    const val FIREBASE_UID = "user_id"
-    const val USER_NICKNAME = "user_nickname"
-    const val USER_EMAIL = "user_email"
+    const val FIREBASE_UID = "FIREBASE_UID"
+    const val USER_NICKNAME = "USER_NICKNAME"
+    const val USER_EMAIL = "USER_EMAIL"
+    const val IS_LOGIN_FIRST = "IS_LOGIN_FIRST"
 
     const val EMPTY_DATE = 0
 }

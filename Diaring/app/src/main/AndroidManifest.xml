@@ -34,7 +34,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.Onboarding.OnboardingActivity"
+            android:name=".presentation.onboarding.OnboardingActivity"
             android:exported="true" />
 
     </application>

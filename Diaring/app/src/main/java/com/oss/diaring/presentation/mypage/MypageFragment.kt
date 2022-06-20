@@ -33,10 +33,10 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
         auth = Firebase.auth
 
         val id_tv = binding.tvEmail
-        id_tv.setText(sharedPreferences.getEmail("user_email"))
+        id_tv.setText(sharedPreferences.getEmail(Constants.USER_EMAIL))
 
         val nickname_tv = binding.tvNickname
-        nickname_tv.setText(sharedPreferences.getNickName("user_nickname"))
+        nickname_tv.setText(sharedPreferences.getNickName(Constants.USER_NICKNAME))
 
 
         binding.btnOssbtn.setOnClickListener {

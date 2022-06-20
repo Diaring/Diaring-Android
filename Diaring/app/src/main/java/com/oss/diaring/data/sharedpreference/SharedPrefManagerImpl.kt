@@ -36,4 +36,14 @@ class SharedPrefManagerImpl(private val context: Context) : SharedPrefManager {
     override fun getEmail(key: String): String? {
         return preference.getString(key, "")
     }
+
+    override fun setIsLoginFirst(key: String, value: Boolean) {
+        preference.edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    override fun getIsLoginFirst(key: String): Boolean {
+        return preference.getBoolean(key, true)
+    }
 }
