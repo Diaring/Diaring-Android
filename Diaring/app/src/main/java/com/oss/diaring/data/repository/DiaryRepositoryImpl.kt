@@ -24,12 +24,20 @@ class DiaryRepositoryImpl @Inject constructor(
         return dataSource.getDiaryWithDailyEmojis(selectedDate)
     }
 
+    override suspend fun insertDiary(diary: Diary): Long {
+        return dataSource.insertDiary(diary)
+    }
+
     override suspend fun insertDiary(diary: Diary, selectedDate: LocalDate): Long {
         return dataSource.insertDiary(diary, selectedDate)
     }
 
-    override suspend fun insertDailyDiary(dailyDiary: DailyEmojis) {
-        dataSource.insertDailyDiary(dailyDiary)
+    override suspend fun insertDailyEmojis(dailyDiary: DailyEmojis) {
+        return dataSource.insertDailyEmojis(dailyDiary)
+    }
+
+    override suspend fun insertDailyWeather(dailyWeather: DailyWeather) {
+        return dataSource.insertDailyWeather(dailyWeather)
     }
 
     override suspend fun updateDiary(diary: Diary, selectedDate: LocalDate) {
@@ -38,5 +46,13 @@ class DiaryRepositoryImpl @Inject constructor(
 
     override suspend fun getAllDailyWeather(): List<DailyWeather> {
         return dataSource.getAllWeatherList()
+    }
+
+    override suspend fun getAllDiaries(): List<Diary> {//MutableMap<LocalDate, Diary> {
+        return dataSource.getAllDiaries()
+    }
+
+    override suspend fun deleteDiary(id: Int) {
+        return dataSource.deleteDiary(id)
     }
 }

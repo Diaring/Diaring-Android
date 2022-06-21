@@ -25,10 +25,14 @@ class DiaryDataSourceImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun insertDiary(diary: Diary): Long {
+        return diaryDao.insertDiary(diary)
+    }
+
     override suspend fun insertDiary(diary: Diary, selectedDate: LocalDate): Long {
         val diaryId = diaryDao.insertDiary(diary)
 
-        diaryDao.insertDailyDiary(
+        diaryDao.insertDailyEmojis(
             DailyEmojis(
                 EmojiStates.DEFAULT,
                 true,
@@ -40,8 +44,12 @@ class DiaryDataSourceImpl @Inject constructor(
         return diaryId
     }
 
-    override suspend fun insertDailyDiary(dailyDiary: DailyEmojis) {
-        diaryDao.insertDailyDiary(dailyDiary)
+    override suspend fun insertDailyEmojis(dailyDiary: DailyEmojis) {
+        diaryDao.insertDailyEmojis(dailyDiary)
+    }
+
+    override suspend fun insertDailyWeather(dailyWeather: DailyWeather) {
+        diaryDao.insertDailyWeather(dailyWeather)
     }
 
     override suspend fun updateDiary(diary: Diary, selectedDate: LocalDate) {
@@ -52,5 +60,13 @@ class DiaryDataSourceImpl @Inject constructor(
 
     override suspend fun getAllWeatherList(): List<DailyWeather> {
         return diaryDao.getAllDailyWeather()
+    }
+
+    override suspend fun getAllDiaries(): List<Diary> {//MutableMap<LocalDate, Diary> {
+        return diaryDao.getAllDiaries()
+    }
+
+    override suspend fun deleteDiary(id: Int) {
+        return diaryDao.deleteDiary(id)
     }
 }

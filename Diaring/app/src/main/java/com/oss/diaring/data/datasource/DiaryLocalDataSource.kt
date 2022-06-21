@@ -16,9 +16,17 @@ interface DiaryDataSource {
 
     suspend fun insertDiary(diary: Diary, selectedDate: LocalDate) : Long
 
-    suspend fun insertDailyDiary(dailyDiary: DailyEmojis)
+    suspend fun insertDiary(diary: Diary) : Long
+
+    suspend fun insertDailyEmojis(dailyDiary: DailyEmojis)
+
+    suspend fun insertDailyWeather(dailyWeather: DailyWeather)
 
     suspend fun updateDiary(diary: Diary, selectedDate: LocalDate)
 
     suspend fun getAllWeatherList(): List<DailyWeather>
+
+    suspend fun getAllDiaries(): List<Diary>//MutableMap<LocalDate, Diary>
+
+    suspend fun deleteDiary(id: Int)
 }
