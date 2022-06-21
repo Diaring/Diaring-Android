@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
 import javax.inject.Inject
 
+// Home Fragment에서 사용되는 ViewModel
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: DiaryRepository

@@ -1,5 +1,6 @@
 package com.oss.diaring.data.sharedpreference
 
+// 간단한 값 저장을 위한 Preference 인터페이스
 interface SharedPrefManager {
 
     fun setNickName(key: String, value: String)
@@ -13,4 +14,8 @@ interface SharedPrefManager {
     fun setEmail(key: String, value: String)
 
     fun getEmail(key: String): String?
+
+    fun setIsLoginFirst(key: String, value: Boolean)
+
+    fun getIsLoginFirst(key: String): Boolean
 }

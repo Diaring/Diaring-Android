@@ -13,6 +13,7 @@ import com.oss.diaring.data.model.DayWithEmojiAndSelect
 import com.oss.diaring.databinding.ItemCalendarDayBinding
 import com.oss.diaring.util.Constants.EMPTY_DATE
 
+// ViewPager에 붙는 날짜 RecyclerView의 Adapter 클래스
 class CalendarDayAdapter(private val dayClickCallback: (Int) -> (Unit)) :
     ListAdapter<DayWithEmojiAndSelect, CalendarDayAdapter.CalendarDayViewHolder>(CalendarDiffUtil()) {
 

@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
 
+// Calendar의 상태 관리를 위한 ViewModel
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
     private val repository: DiaryRepository,

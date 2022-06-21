@@ -8,6 +8,7 @@ import com.oss.diaring.util.Constants.DIARY_DB_NAME
 import java.io.Serializable
 import java.time.LocalDate
 
+// Diary Database Entity
 @Entity(tableName = DIARY_DB_NAME)
 data class Diary(
     @PrimaryKey(autoGenerate = true) var no: Int,

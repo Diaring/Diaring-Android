@@ -1,18 +1,18 @@
 package com.oss.diaring.presentation.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.oss.diaring.R
 import com.oss.diaring.databinding.FragmentHomeBinding
-import com.oss.diaring.presentation.base.BaseFragment
 import com.oss.diaring.presentation.home.calendar.EmotionEmojiBottomSheetDialog
 import com.oss.diaring.presentation.home.calendar.adapter.CalendarAdapter
 import com.oss.diaring.util.DayClickListener
@@ -20,14 +20,16 @@ import com.oss.diaring.util.EmojiSwipeListener
 import com.oss.diaring.util.MonthSwipeListener
 import com.oss.diaring.util.TodayClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.time.LocalDate
 
+// Navigation Bar에서 첫번째 탭에 해당하는 Home Fragment
+// Calendar가 RecyclerView 형태로 붙는다.
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(
-    R.layout.fragment_home
-), DayClickListener, MonthSwipeListener {
+class HomeFragment : Fragment(), DayClickListener, MonthSwipeListener {
 
     private lateinit var calendarAdapter: CalendarAdapter
+    private lateinit var binding: FragmentHomeBinding
 
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var todayClickListener: TodayClickListener
@@ -60,9 +62,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private var isFabClicked: Boolean = false
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        Timber.e("ONVIEWCREATED")
         bindViews()
         initRecyclerView()
         initObserver()
@@ -134,11 +148,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     private fun updateViewPager() {
-        val handler = Handler(Looper.getMainLooper())
-        val runnable = Runnable {
-            calendarAdapter.notifyItemChanged(0)
-        }
-        handler.post(runnable)
+//        Timber.e("UPDATEVIEWPAGER")
+//        val handler = Handler(Looper.getMainLooper())
+//        val runnable = Runnable {
+//            calendarAdapter.notifyItemChanged(0)
+//        }
+//        handler.post(runnable)
     }
 
     private fun setFabAnimation(isFabClicked: Boolean) {
