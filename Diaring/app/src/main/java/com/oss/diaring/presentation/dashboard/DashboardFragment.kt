@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,18 +21,20 @@ import com.oss.diaring.R
 import com.oss.diaring.databinding.FragmentDashboardBinding
 import com.oss.diaring.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
+import androidx.fragment.app.viewModels
 
+//Navigation Bar에서 두번째 탭에 해당하는 Dashboard Fragment
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragment_dashboard) {
 
     private lateinit var barChart: BarChart
     private lateinit var pieChart: PieChart
-    private lateinit var btn_left: ImageView
-    private lateinit var tv_month: TextView
-    private lateinit var btn_right: ImageView
+    private lateinit var btnLeft: ImageView
+    private lateinit var tvMonth: TextView
+    private lateinit var btnRight: ImageView
+
+    private val viewModel: DashboardViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,80 +42,60 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         initUI(view)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
+    // 초기 UI를 구성하는 함수
     private fun initUI(view : View){
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월")
-        val formatted = current.format(formatter)
-
-        btn_left = view.findViewById(R.id.iv_previous_month)
-        tv_month = view.findViewById(R.id.tv_month)
-        btn_right = view.findViewById(R.id.iv_next_month)
-
-        val token = formatted.chunked(2)
-        var cur_year = (token[0] + token[1]).toInt()
-        var cur_month = token[3].toInt()
-
-        tv_month.text = (cur_year.toString() + "년 " + cur_month + "월")
-
-        btn_left.setOnClickListener{
-            if(cur_month==1){
-                cur_year -= 1
-                cur_month = 13
-            }
-            cur_month -= 1
-            tv_month.text = (cur_year.toString() + "년 " + cur_month + "월")
-        }
-
-        btn_right.setOnClickListener{
-            if(cur_month==12){
-                cur_year += 1
-                cur_month = 0
-            }
-            cur_month += 1
-            tv_month.text = (cur_year.toString() + "년 " + cur_month + "월")
-        }
-
+        btnLeft = view.findViewById(R.id.iv_previous_month)
+        tvMonth = view.findViewById(R.id.tv_month)
+        btnRight = view.findViewById(R.id.iv_next_month)
         barChart = view.findViewById(R.id.barChart)
-        setBarData(barChart)
-
         pieChart = view.findViewById(R.id.pieChart)
 
-        pieChart.setUsePercentValues(true)
-        pieChart.description.isEnabled = false
+        viewModel.initData()
+        tvMonth.text = (viewModel.curYear.toString() + "년 " + viewModel.curMonth + "월")
+        setBarData(barChart)
+        setPieData(pieChart)
 
-        pieChart.centerText = ""
+        btnLeft.setOnTouchListener{ _: View, event: MotionEvent ->
+            when(event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    viewModel.previousMonth()
+                }
+                MotionEvent.ACTION_UP -> {
+                    tvMonth.text = (viewModel.curYear.toString() + "년 " + viewModel.curMonth + "월")
+                    setBarData(barChart)
+                    setPieData(pieChart)
+                }
+            }
+            true
+        }
 
-        pieChart.setTransparentCircleColor(Color.WHITE)
-        pieChart.setTransparentCircleAlpha(110)
-
-        pieChart.holeRadius = 58f
-        pieChart.transparentCircleRadius = 61f
-
-        pieChart.setDrawCenterText(true)
-
-        pieChart.isHighlightPerTapEnabled = true
-
-        val pieLegend = pieChart.legend
-        pieLegend.isEnabled = false
-
-        pieChart.setEntryLabelColor(Color.WHITE)
-        pieChart.setEntryLabelTextSize(12f)
-
-        setPieData()
+        btnRight.setOnTouchListener{ _: View, event: MotionEvent ->
+            when(event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    viewModel.nextMonth()
+                }
+                MotionEvent.ACTION_UP -> {
+                    tvMonth.text = (viewModel.curYear.toString() + "년 " + viewModel.curMonth + "월")
+                    setBarData(barChart)
+                    setPieData(pieChart)
+                }
+            }
+            true
+        }
     }
 
 
-
     @SuppressLint("UseCompatLoadingForDrawables")
+    // Bar Chart의 Data를 set하는 함수
     private fun setBarData(barChart: BarChart) {
         initBarChart(barChart)
 
         barChart.setScaleEnabled(false) //Zoom In/Out
 
         val entries: ArrayList<BarEntry> = ArrayList()
-        val title = "이번 달 기분"
+        val title = "월별 기분"
         val xAxisValues: List<String> = ArrayList(
             listOf(
                 "",
@@ -125,31 +108,31 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         )
         entries.add(
             BarEntry(
-                1.0f, 20.0f,
+                1.0f, viewModel.eCount1,
                 resources.getDrawable(R.drawable.ic_very_bad_24, null)
             )
         )
         entries.add(
             BarEntry(
-                2.0f, 40.0f,
+                2.0f, viewModel.eCount2,
                 resources.getDrawable(R.drawable.ic_bad_24, null)
             )
         )
         entries.add(
             BarEntry(
-                3.0f, 60.0f,
+                3.0f, viewModel.eCount3,
                 resources.getDrawable(R.drawable.ic_fine_24, null)
             )
         )
         entries.add(
             BarEntry(
-                4.0f, 30.0f,
+                4.0f, viewModel.eCount4,
                 resources.getDrawable(R.drawable.ic_good_24, null)
             )
         )
         entries.add(
             BarEntry(
-                5.0f, 90.0f,
+                5.0f, viewModel.eCount5,
                 resources.getDrawable(R.drawable.ic_very_good_24, null)
             )
         )
@@ -171,6 +154,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         barChart.invalidate()
     }
 
+    // Bar Chart의 초기환경을 설정하는 함수
     private fun initBarChart(barChart: BarChart) {
         //hiding the grey background of the chart, default false if not set
         barChart.setDrawGridBackground(false)
@@ -208,6 +192,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         leftAxis.setDrawLabels(true)
         leftAxis.setDrawAxisLine(false)
         leftAxis.setDrawGridLines(false)
+        leftAxis.axisMaximum = 31f
+        leftAxis.axisMinimum = 0f
 
         //우측 값 hiding the right y-axis line, default true if not set
         val rightAxis: YAxis = barChart.axisRight
@@ -217,29 +203,32 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun setPieData() {
+    // Pie Chart의 Data를 set하는 함수
+    private fun setPieData(pieChart: PieChart) {
+        initPieChart(pieChart)
+        val wTotal = viewModel.wCount1 + viewModel.wCount2 + viewModel.wCount3 + viewModel.wCount4
         val entries = ArrayList<PieEntry>()
         entries.add(
             PieEntry(
-                8.0f, "눈",
+                viewModel.wCount1/wTotal*100f, "눈",
                 resources.getDrawable(R.drawable.ic_snow_blue_24, null)
             )
         )
         entries.add(
             PieEntry(
-                37.0f, "구름많음",
+                viewModel.wCount2/wTotal*100f, "구름많음",
                 resources.getDrawable(R.drawable.ic_cloud_blue_24, null)
             )
         )
         entries.add(
             PieEntry(
-                32.0f, "맑음",
+                viewModel.wCount3/wTotal*100f, "맑음",
                 resources.getDrawable(R.drawable.ic_sun_blue_24, null)
             )
         )
         entries.add(
             PieEntry(
-                23.0f, "비",
+                viewModel.wCount4/wTotal*100f, "비",
                 resources.getDrawable(R.drawable.ic_rain_blue_24, null)
             )
         )
@@ -254,7 +243,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         colors.add(Color.parseColor("#808080")) // 눈
         colors.add(Color.parseColor("#d3d1d6")) // 구름
         colors.add(Color.parseColor("#66A4FF")) // 맑음
-        colors.add(Color.parseColor("#41617f")) //비
+        colors.add(Color.parseColor("#41617f")) // 비
         dataSet.colors = colors
         val data = PieData(dataSet)
         data.setValueTextSize(22.0f)
@@ -263,5 +252,27 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         pieChart.invalidate()
     }
 
-}
+    // Pie Chart의 초기환경을 설정하는 함수
+    private fun initPieChart(pieChart: PieChart) {
+        pieChart.setUsePercentValues(true)
+        pieChart.description.isEnabled = false
 
+        pieChart.centerText = ""
+
+        pieChart.setTransparentCircleColor(Color.WHITE)
+        pieChart.setTransparentCircleAlpha(110)
+
+        pieChart.holeRadius = 58f
+        pieChart.transparentCircleRadius = 61f
+
+        pieChart.setDrawCenterText(true)
+
+        pieChart.isHighlightPerTapEnabled = true
+
+        val pieLegend = pieChart.legend
+        pieLegend.isEnabled = false
+
+        pieChart.setEntryLabelColor(Color.WHITE)
+        pieChart.setEntryLabelTextSize(12f)
+    }
+}
