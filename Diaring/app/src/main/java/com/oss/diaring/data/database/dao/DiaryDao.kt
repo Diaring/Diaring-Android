@@ -35,8 +35,11 @@ interface DiaryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDiary(diary: Diary): Long
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertDailyDiary(dailyEmojis: DailyEmojis)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDailyEmojis(dailyEmojis: DailyEmojis)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDailyWeather(dailyWeather: DailyWeather)
 
     @Update
     suspend fun updateDiary(diary: Diary)

@@ -4,5 +4,5 @@
     <external-files-path name="external_files_path" path="." />
     <external-path
         name="Diaring"
-        path="/storage/emulated/0/Pictures" />
+        path="/Pictures" />
 </paths>

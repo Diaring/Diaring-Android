@@ -34,9 +34,13 @@ import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
 import com.oss.diaring.R
 import com.oss.diaring.data.database.DiaryDatabase
+import com.oss.diaring.data.database.entity.DailyEmojis
+import com.oss.diaring.data.database.entity.DailyWeather
 import com.oss.diaring.data.database.entity.Diary
 import com.oss.diaring.databinding.FragmentDiaryBinding
 import com.oss.diaring.presentation.base.BaseFragment
+import com.oss.diaring.util.EmojiStates
+import com.oss.diaring.util.WeatherStates
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -58,6 +62,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
     private var diariesIndexes: MutableList<Int> = mutableListOf(0)
 
     private lateinit var defaultBitmapImage : Bitmap
+    private var currentBitmapImage : Bitmap? = null
     // db variable to use Room, created with databaseBuilder
     ////////////////////////////////////////////////////////////////
     private lateinit var db: DiaryDatabase
@@ -325,7 +330,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
             if (tempFlag && diariesIndexes.contains(currentDiaryId)) {
                 diariesIndexes.remove(currentDiaryId)
             }
-            if (destinationIndex>1) {
+            if (destinationIndex>0) {
                 currentDiaryLocalDate = intIdToLocalDate(diariesIndexes[destinationIndex-1])
                 currentDiaryId = localDateToIntId(currentDiaryLocalDate)
             }
@@ -565,12 +570,15 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
 
             diaryMBinding.diaryEmotionSeekBar.progress = currentPageEmotion
 
-            if (cd.image != null) {
-                diaryMBinding.diaryMainImage.setImageBitmap(cd.image)
-                isImageUploaded = true
-            } else {
+            activity?.runOnUiThread {
                 diaryMBinding.diaryMainImage.setImageResource(R.drawable.ic_diary_default_image)
+
+                if (currentDiary != null) {
+                    diaryMBinding.diaryMainImage.setImageBitmap(currentDiary!!.image)
+                }
             }
+            isImageUploaded = true
+
             setDiaryBackgroundColor()
             if (tempFlag) {
                 diariesIndexes.remove(cd.no)
@@ -588,8 +596,49 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
             currentDiary?.location = diaryMBinding.diaryPlaceText.text.toString()
             currentDiary?.hashTagList = listOf("")
             currentDiary?.content = diaryMBinding.diaryContentText.text.toString()
+
             currentDiary?.weather = currentPageWeather
+            var weather_state = WeatherStates.DEFAULT
+            when (currentPageWeather) {
+                0 -> {
+                    weather_state = WeatherStates.DEFAULT
+                }
+                1 -> {
+                    weather_state = WeatherStates.SNOWY
+                }
+                2 -> {
+                    weather_state = WeatherStates.CLOUDY
+                }
+                3 -> {
+                    weather_state = WeatherStates.SUNNY
+                }
+                4 -> {
+                    weather_state = WeatherStates.RAINY
+                }
+            }
+
             currentDiary?.emotion = currentPageEmotion
+            var emoji_state:EmojiStates = EmojiStates.DEFAULT
+            when (currentPageEmotion) {
+                0 -> {
+                    emoji_state = EmojiStates.DEFAULT
+                }
+                1 -> {
+                    emoji_state = EmojiStates.VERY_BAD
+                }
+                2 -> {
+                    emoji_state = EmojiStates.BAD
+                }
+                3-> {
+                    emoji_state = EmojiStates.FINE
+                }
+                4 -> {
+                    emoji_state = EmojiStates.GOOD
+                }
+                5 -> {
+                    emoji_state = EmojiStates.VERY_GOOD
+                }
+            }
 
             if (diaryMBinding.diaryMainImage.drawable != null) {
                 currentDiary?.image =
@@ -601,6 +650,9 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                 GlobalScope.launch {
                     try {
                         db.diaryDao().insertDiary(currentDiary!!)
+//                        Timber.d(currentDiary.toString())
+                        db.diaryDao().insertDailyEmojis(DailyEmojis(emoji_state, true, currentDiary!!.no, currentDiary!!.date))
+                        db.diaryDao().insertDailyWeather(DailyWeather(weather_state, true, currentDiary!!.no, currentDiary!!.date))
                     } catch (e : java.lang.Exception) {
                         e.printStackTrace()
                     }
@@ -648,7 +700,6 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                             break
                         }
                     }
-
                     // 요청한 권한을 모두 허용했음.
                     if (isAllGranted) {
                         runDelayed(300) {
@@ -657,6 +708,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                     }
                     // 허용하지 않은 권한이 있음. 필수권한/선택권한 여부에 따라서 별도 처리를 해주어야 함.
                     else {
+                        cameraCall()
                         if(!ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
                                 Manifest.permission.READ_EXTERNAL_STORAGE)
                             || !ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
@@ -687,7 +739,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
         cropImage.launch(
             options {
                 setGuidelines(CropImageView.Guidelines.ON)
-                setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
+                setOutputCompressFormat(Bitmap.CompressFormat.PNG)
                 setInitialCropWindowPaddingRatio(0f)
                 setAspectRatio(1, 1)
                 setFixAspectRatio(true)
@@ -698,19 +750,21 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
 
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            imageUri = result.uriContent
             var uriFilePath = result.getUriFilePath(requireContext()) // optional usage
             var imageFile : File? = createImageFile()
             try {
+                imageUri = result.uriContent
+                currentBitmapImage = result.getBitmap(requireContext())!!.copy(Bitmap.Config.RGBA_F16, true)
+//                Timber.d("oncapture %s", currentBitmapImage.toString())
                 val out = FileOutputStream(imageFile)
-                result.bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                result.bitmap?.compress(Bitmap.CompressFormat.PNG, 100, out)
                 out.flush()
                 out.close()
 
                 requireContext().sendBroadcast(
                     Intent(
                         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-                        Uri.parse(Environment.getExternalStorageDirectory().toString() + "/Pictures/Diaring")
+                        Uri.parse(Environment.getExternalStorageDirectory().toString() + "/Diaring")
                     )
                 )
             } catch (e: Exception) {
@@ -722,8 +776,15 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                 GlobalScope.launch {
                     delay(500)
                     activity?.runOnUiThread {
-                        diaryMBinding.diaryMainImage.setImageURI(imageUri)
-                        setDiaryBackgroundColor()
+                        try {
+//                            Timber.d("onchange %s", currentBitmapImage.toString())
+                            diaryMBinding.diaryMainImage.setImageBitmap(result.getBitmap(requireContext()))
+//                            Timber.d(imageUri.toString())
+//                            diaryMBinding.diaryMainImage.setImageURI(imageUri)
+                            setDiaryBackgroundColor()
+                        } catch (e : Exception) {
+                            e.printStackTrace()
+                        }
                     }
                     saveDiary()
                 }
@@ -843,6 +904,8 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
             if (viewMode == 2) {
                 mainImageAndContentTransparency(0)
             } else {
+//                Timber.d("onpressed %s", currentDiary!!.image.toString())
+                Timber.d("onpressed %s", diariesIndexes.toString())
                 Toast.makeText(
                     this.requireContext(),
                     "To exit, click Back again",

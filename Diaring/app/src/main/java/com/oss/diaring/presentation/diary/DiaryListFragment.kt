@@ -26,12 +26,16 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import com.oss.diaring.data.database.DiaryDatabase
+import com.oss.diaring.data.database.entity.DailyEmojis
+import com.oss.diaring.data.database.entity.DailyWeather
 import com.oss.diaring.data.database.entity.Diary
 import kotlinx.coroutines.delay
 import timber.log.Timber
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
+import com.oss.diaring.util.EmojiStates
+import com.oss.diaring.util.WeatherStates
 
 class DiaryListFragment : BaseFragment<FragmentDiaryListBinding>(R.layout.fragment_diary_list) {
 
@@ -259,7 +263,8 @@ class DiaryListFragment : BaseFragment<FragmentDiaryListBinding>(R.layout.fragme
         val navHostFragment =
             activity?.supportFragmentManager?.findFragmentById(R.id.fcv_main) as NavHostFragment
         recentlyVisitedDiaryDate = localDateToIntId(diaryListData.date)
-        Timber.d(recentlyVisitedDiaryDate.toString())
+//        Timber.d(recentlyVisitedDiaryDate.toString())
+//        Timber.d("onopen %s", diariesMap.get(currentPageLocalDate)?.image.toString())
         val action = DiaryListFragmentDirections.actionToDiary(diariesIndexes.toIntArray(), recentlyVisitedDiaryDate)
         navHostFragment.navController.navigate(action)
     }

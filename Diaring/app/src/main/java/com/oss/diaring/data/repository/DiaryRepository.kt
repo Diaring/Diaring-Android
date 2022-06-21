@@ -13,9 +13,13 @@ interface DiaryRepository {
 
     suspend fun getDiaryWithDailyEmojis(selectedDate: LocalDate): List<DiaryWithDailyEmoji>
 
+    suspend fun insertDiary(diary: Diary): Long
+
     suspend fun insertDiary(diary: Diary, selectedDate: LocalDate): Long
 
-    suspend fun insertDailyDiary(dailyDiary: DailyEmojis)
+    suspend fun insertDailyEmojis(dailyDiary: DailyEmojis)
+
+    suspend fun insertDailyWeather(dailyWeather: DailyWeather)
 
     suspend fun updateDiary(diary: Diary, selectedDate: LocalDate)
 
