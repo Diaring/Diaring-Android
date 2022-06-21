@@ -46,10 +46,9 @@ Diaring(다이어링)은 일기장 애플리케이션입니다.
 | --------------------------- | ------------------------------------------------------------ |
 | **Design Pattern**          | Repository Pattern, Delegation Pattern                       |
 | **Jetpack Components**      | DataBinding, LiveData, ViewModel, Lifecycle, Room, Navigation Component|
-| **Dependency Injection**    | Koin                                                         |
-| **Network**                 | OkHttp3, Retrofit2                                           |
+| **Dependency Injection**    | Hilt                                                         |
 | **Asynchronous Processing** | Coroutine                                                    |
-| **Third Party Library**     | Glide, Timber                                                |
+| **Third Party Library**     | Timber, Gson, Firebase Auth, MPAndroidChart, OSS-License                                                |
 | **Strategy**                | Git Flow                                                     |
 | **Other Tool**              | Notion                                                       |
 
