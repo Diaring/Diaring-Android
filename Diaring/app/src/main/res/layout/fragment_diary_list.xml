@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.diary.DiaryListFragment">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            style="@style/TextHeadline.Blue.Bold"
+            android:id="@+id/mainTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/emptyText"
+            android:paddingVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2022년 5월"
+            />
+
+        <ImageView
+            android:id="@+id/diary_list_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="-150dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:background="@color/transparency_0"
+            android:contentDescription="@string/emptyText"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_arrow_back_24"
+            android:text="@string/emptyText"
+            app:layout_constraintEnd_toStartOf="@id/mainTitle"
+            app:layout_constraintTop_toTopOf="@id/mainTitle"
+            app:layout_constraintBottom_toBottomOf="@id/mainTitle"
+            />
+
+        <ImageView
+            android:id="@+id/diary_list_forward_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-144dp"
+            android:layout_marginTop="2dp"
+            android:clickable="false"
+            app:layout_constraintDimensionRatio="1:1"
+            android:background="@color/transparency_0"
+            android:contentDescription="@string/emptyText"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_arrow_forward_24"
+            android:text="@string/emptyText"
+            app:layout_constraintStart_toEndOf="@id/mainTitle"
+            app:layout_constraintTop_toTopOf="@id/mainTitle"
+            app:layout_constraintBottom_toBottomOf="@id/mainTitle"
+            />
+
+        <ImageView
+            android:id="@+id/diary_list_check_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-80dp"
+            android:layout_marginTop="2dp"
+            android:clickable="true"
+            app:layout_constraintDimensionRatio="1:1"
+            android:background="@color/transparency_0"
+            android:contentDescription="@string/emptyText"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_check_24"
+            android:text="@string/emptyText"
+            app:layout_constraintStart_toEndOf="@id/mainTitle"
+            app:layout_constraintTop_toTopOf="@id/mainTitle"
+            app:layout_constraintBottom_toBottomOf="@id/mainTitle"
+            />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/diaryListView"
+            android:layout_marginTop="72dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/diaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/primary_blue"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/emptyText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add_24"
+            app:tint="@color/white" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

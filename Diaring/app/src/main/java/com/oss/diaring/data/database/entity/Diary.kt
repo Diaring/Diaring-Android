@@ -10,13 +10,13 @@ import java.time.LocalDate
 
 @Entity(tableName = DIARY_DB_NAME)
 data class Diary(
-    @PrimaryKey(autoGenerate = true) val no: Int = 0,
-    @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "date") val date: LocalDate,
-    @ColumnInfo(name = "location") val location: String?,
-    @ColumnInfo(name = "hash_tag_list") val hashTagList: List<String>?,
-    @ColumnInfo(name = "content") val content: String,
-    @ColumnInfo(name = "weather") val weather: Int,
-    @ColumnInfo(name = "emotion") val emotion: Int,
-    @ColumnInfo(name = "image") val image: Bitmap?
+    @PrimaryKey(autoGenerate = true) var no: Int,
+    @ColumnInfo(name = "title") var title: String,
+    @ColumnInfo(name = "date") var date: LocalDate,
+    @ColumnInfo(name = "location") var location: String?,
+    @ColumnInfo(name = "hash_tag_list") var hashTagList: List<String>?,
+    @ColumnInfo(name = "content") var content: String,
+    @ColumnInfo(name = "weather") var weather: Int,
+    @ColumnInfo(name = "emotion") var emotion: Int,
+    @ColumnInfo(name = "image") var image: Bitmap?
 ) : Serializable

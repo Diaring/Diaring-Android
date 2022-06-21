@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.oss.diaring">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".DiaringApplication"
         android:allowBackup="false"
@@ -10,6 +14,20 @@
         android:roundIcon="@mipmap/ic_diaring_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Diaring">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.oss.diaring"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepath" />
+        </provider>
+
+<!--        <activity-->
+<!--            android:name=".presentation.login.LoginActivity"-->
+<!--            android:exported="false" />-->
 
         <activity
             android:name=".presentation.login.LoginActivity"
@@ -36,6 +54,9 @@
         <activity
             android:name=".presentation.Onboarding.OnboardingActivity"
             android:exported="true" />
+
+        <activity android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
 
     </application>
 

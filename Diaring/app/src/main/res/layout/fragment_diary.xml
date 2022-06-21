@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    
+    tools:context=".presentation.diary.DiaryFragment">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_diary_main_background">
+
+        <!-- //////////////////////////////////////////////////////////////// -->
+        <!-- 상단 텍스트 -->
+        <!-- //////////////////////////////////////////////////////////////// -->
+        <EditText
+            style="@style/TextHeadline.White"
+            android:id="@+id/diary_subject_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="14dp"
+            android:background="@null"
+            android:clickable="true"
+            android:enabled="true"
+            android:focusable="false"
+            android:gravity="top"
+            android:inputType="text"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:selectAllOnFocus="false"
+            android:hint="@string/diary_subject"
+            android:textColorHint="@color/transparency_75"
+            android:textSize="28dp"
+            android:ellipsize="end"
+            android:alpha="0.85"
+            android:maxLength="20"
+            app:layout_constraintEnd_toStartOf="@id/diary_menu_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAutofill="no"/>
+
+        <TextView
+            style="@style/TextHeadline.White"
+            android:id="@+id/diary_date_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:text=""
+            android:alpha="0.85"
+            app:layout_constraintEnd_toEndOf="@id/diary_subject_text"
+            app:layout_constraintStart_toStartOf="@id/diary_subject_text"
+            app:layout_constraintTop_toBottomOf="@id/diary_subject_text"
+            tools:text="2022년 5월 17일"/>
+
+        <EditText
+            style="@style/TextSubtitle2.White"
+            android:id="@+id/diary_place_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="23dp"
+            android:background="@null"
+            android:clickable="true"
+            android:enabled="true"
+            android:focusable="false"
+            android:gravity="top"
+            android:inputType="text"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:selectAllOnFocus="false"
+            android:hint="@string/diary_place"
+            android:textColorHint="@color/transparency_75"
+            android:alpha="0.85"
+            app:layout_constraintEnd_toEndOf="@id/diary_date_text"
+            app:layout_constraintStart_toStartOf="@id/diary_date_text"
+            app:layout_constraintTop_toTopOf="@id/diary_date_text"
+            android:importantForAutofill="no" />
+
+        <!-- //////////////////////////////////////////////////////////////// -->
+        <!-- 상단 메뉴 버튼 -->
+        <!-- //////////////////////////////////////////////////////////////// -->
+
+        <ImageView
+            android:id="@+id/diary_minimize_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="40dp"
+            android:contentDescription="@string/emptyText"
+            android:src="@drawable/ic_arrow_down_48"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/diary_menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="52dp"
+            android:contentDescription="@string/emptyText"
+            android:src="@drawable/ic_round_pending_24"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- //////////////////////////////////////////////////////////////// -->
+        <!-- 일기 메인 이미지, 해시태그 텍스트 -->
+        <!-- //////////////////////////////////////////////////////////////// -->
+
+        <!-- Rectangle shape 에 round edge 적용 시, round edge 가 image 에 적용되지 않는 버그가 존재함-->
+        <!-- 외부 라이브러리 Android Shape ImageView 를 사용하여 해결했으나 추후 더 나은 방법이 발견되면 개선할 예정 -->
+        <!-- Android Shape ImageView 코드 분석 결과 문제 발생 가능성 낮다고 판단. 디버그 중 문제 발견되지 않는 한 유지 -->
+        <com.github.siyamed.shapeimageview.RoundedImageView
+            android:id="@+id/diary_main_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="w, 1:1"
+            android:alpha="1"
+            android:clickable="true"
+            android:focusable="false"
+            android:contentDescription="@string/emptyText"
+            android:src="@drawable/ic_diary_default_image"
+            android:translationZ="0dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginVertical="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/diary_place_text"
+            app:siRadius="12dp"
+            app:siSquare="true" />
+
+        <ImageView
+            android:id="@+id/diary_add_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_photo_144"
+            android:background="@color/transparency_0"
+            android:alpha="0"
+            android:clickable="false"
+            android:translationZ="-1dp"
+            android:contentDescription="@string/emptyText"
+            app:layout_constraintStart_toStartOf="@id/diary_main_image"
+            app:layout_constraintEnd_toEndOf="@id/diary_main_image"
+            app:layout_constraintTop_toTopOf="@id/diary_main_image"
+            app:layout_constraintBottom_toBottomOf="@id/diary_main_image"
+            tools:alpha="1"
+            />
+
+        <EditText
+            android:id="@+id/diary_content_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:alpha="0"
+            android:background="@color/transparency_0"
+            android:clickable="false"
+            android:enabled="false"
+            android:gravity="top"
+            android:hint="@string/diary_content"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:scrollHorizontally="false"
+            android:selectAllOnFocus="false"
+            android:textColor="@color/white"
+            android:textColorHint="@color/transparency_75"
+            android:translationZ="-1dp"
+            app:layout_constraintBottom_toBottomOf="@id/diary_main_image"
+            app:layout_constraintEnd_toEndOf="@id/diary_main_image"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/diary_main_image"
+            app:layout_constraintTop_toTopOf="@id/diary_main_image"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="content" />
+
+        <TextView
+            style="@style/TextHeadline.White"
+            android:id="@+id/diary_content_text_length"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:maxLines="1"
+            android:text="@string/diary_textLength_zero"
+            android:alpha="0"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/diary_content_text"
+            app:layout_constraintEnd_toEndOf="@id/diary_content_text"
+            app:layout_constraintTop_toTopOf="@id/diary_content_text"
+            app:layout_constraintBottom_toBottomOf="@id/diary_content_text"
+            tools:text="0/1000"/>
+
+        <!-- //////////////////////////////////////////////////////////////// -->
+        <!-- 날씨 바와 포함된 이미지 버튼들 -->
+        <!-- //////////////////////////////////////////////////////////////// -->
+
+        <View
+            android:id="@+id/diary_weather_bar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/emptyText"
+            app:layout_constraintDimensionRatio="1:0.12"
+            android:background="@drawable/bg_diary_weatherbar_background"
+            app:layout_constraintEnd_toEndOf="@id/diary_main_image"
+            app:layout_constraintStart_toStartOf="@id/diary_main_image"
+            app:layout_constraintTop_toBottomOf="@id/diary_main_image"
+            />
+
+        <ImageView
+            android:id="@+id/diary_snowy_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="240dp"
+            android:background="@color/transparency_0"
+            android:src="@drawable/ic_snow_24"
+            android:clickable="false"
+            android:alpha="0.75"
+            android:contentDescription="@string/emptyText"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toBottomOf="@id/diary_weather_bar"
+            app:layout_constraintEnd_toEndOf="@id/diary_weather_bar"
+            app:layout_constraintStart_toStartOf="@id/diary_weather_bar"
+            app:layout_constraintTop_toTopOf="@id/diary_weather_bar" />
+
+        <ImageView
+            android:id="@+id/diary_cloudy_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="120dp"
+            android:background="@color/transparency_0"
+            android:src="@drawable/ic_cloud_24"
+            android:clickable="false"
+            android:alpha="0.75"
+            android:contentDescription="@string/emptyText"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/diary_weather_bar"
+            app:layout_constraintEnd_toEndOf="@id/diary_weather_bar"
+            app:layout_constraintBottom_toBottomOf="@id/diary_weather_bar"
+            app:layout_constraintTop_toTopOf="@id/diary_weather_bar" />
+
+        <ImageView
+            android:id="@+id/diary_sunny_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginEnd="40dp"
+            android:background="@color/transparency_0"
+            android:src="@drawable/ic_sun_24"
+            android:clickable="false"
+            android:alpha="0.75"
+            android:contentDescription="@string/emptyText"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/diary_weather_bar"
+            app:layout_constraintEnd_toEndOf="@id/diary_weather_bar"
+            app:layout_constraintTop_toTopOf="@id/diary_weather_bar"
+            app:layout_constraintBottom_toBottomOf="@id/diary_weather_bar" />
+
+        <ImageView
+            android:id="@+id/diary_rainy_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="240dp"
+            android:layout_marginEnd="00dp"
+            android:background="@color/transparency_0"
+            android:src="@drawable/ic_rain_24"
+            android:clickable="false"
+            android:alpha="0.75"
+            android:contentDescription="@string/emptyText"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/diary_weather_bar"
+            app:layout_constraintBottom_toBottomOf="@id/diary_weather_bar"
+            app:layout_constraintEnd_toEndOf="@id/diary_weather_bar"
+            app:layout_constraintTop_toTopOf="@id/diary_weather_bar" />
+
+        <!-- //////////////////////////////////////////////////////////////// -->
+        <!-- 감정 바와 포함된 텍스트, 이미지뷰 -->
+        <!-- //////////////////////////////////////////////////////////////// -->
+
+        <SeekBar
+            android:id="@+id/diary_emotion_seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-15dp"
+            android:layout_marginEnd="-15dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="22dp"
+            android:max="5"
+            android:min="1"
+            android:progress="3"
+            android:progressDrawable="@drawable/bg_diary_seekbar_background"
+            android:thumb="@drawable/ic_good_32"
+            android:alpha="0.75"
+            app:layout_constraintStart_toStartOf="@id/diary_weather_bar"
+            app:layout_constraintEnd_toEndOf="@id/diary_weather_bar"
+            app:layout_constraintTop_toBottomOf="@id/diary_main_image"
+            app:layout_constraintBottom_toBottomOf="@id/diary_play_button"
+            tools:targetApi="O"
+            />
+
+        <!-- //////////////////////////////////////////////////////////////// -->
+        <!-- 화살표 및 재생 이미지 버튼, 관련 텍스트 -->
+        <!-- //////////////////////////////////////////////////////////////// -->
+
+        <ImageView
+            android:id="@+id/diary_prev_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:background="@color/transparency_0"
+            android:contentDescription="@string/emptyText"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_prev_arrow_60"
+            android:text="@string/emptyText"
+            app:layout_constraintEnd_toStartOf="@id/diary_play_button"
+            app:layout_constraintTop_toTopOf="@id/diary_play_button"
+            app:layout_constraintBottom_toBottomOf="@id/diary_play_button"
+            />
+
+        <ImageView
+            android:id="@+id/diary_play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:background="@color/transparency_0"
+            android:contentDescription="@string/emptyText"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_pause_72"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/diary_emotion_seekBar"
+            />
+
+        <ImageView
+            android:id="@+id/diary_next_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:background="@color/transparency_0"
+            android:contentDescription="@string/emptyText"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_next_arrow_60"
+            app:layout_constraintStart_toEndOf="@id/diary_play_button"
+            app:layout_constraintTop_toTopOf="@id/diary_play_button"
+            app:layout_constraintBottom_toBottomOf="@id/diary_play_button"/>
+
+        <TextView
+            style="@style/TextSubtitle2.White"
+            android:id="@+id/diary_prev_page_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="@id/diary_prev_arrow"
+            app:layout_constraintStart_toStartOf="@id/diary_prev_arrow"
+            app:layout_constraintTop_toTopOf="@id/diary_play_text"
+            tools:text="prev_date"
+            />
+
+        <TextView
+            style="@style/TextHeadline.White"
+            android:id="@+id/diary_play_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/diary_edit"
+            app:layout_constraintEnd_toEndOf="@id/diary_play_button"
+            app:layout_constraintStart_toStartOf="@id/diary_play_button"
+            app:layout_constraintTop_toBottomOf="@id/diary_play_button" />
+
+        <TextView
+            style="@style/TextSubtitle2.White"
+            android:id="@+id/diary_next_page_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="@id/diary_next_arrow"
+            app:layout_constraintStart_toStartOf="@id/diary_next_arrow"
+            app:layout_constraintTop_toTopOf="@id/diary_play_text"
+            tools:text="next_date"/>
+
+            <com.canhub.cropper.CropImageView
+            android:id="@+id/cropImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
