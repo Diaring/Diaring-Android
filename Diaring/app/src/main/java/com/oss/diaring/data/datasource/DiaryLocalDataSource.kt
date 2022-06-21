@@ -6,6 +6,7 @@ import com.oss.diaring.data.database.entity.Diary
 import com.oss.diaring.data.model.DiaryWithDailyEmoji
 import java.time.LocalDate
 
+// Data에 접근하기 위한 비즈니스 로직 인터페이스
 interface DiaryDataSource {
 
     suspend fun getAllEmojiList(): List<DailyEmojis>

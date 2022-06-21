@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 
+// List 형태의 Multi-Value Attribute를 Json 형태로 저장하는 Converter
 class ListConverter {
 
     @TypeConverter

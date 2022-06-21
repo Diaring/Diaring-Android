@@ -12,6 +12,7 @@ import com.oss.diaring.databinding.ItemCalendarBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+// Home Fragment에서 RecyclerView의 상태를 관리하는 Adapter
 class CalendarAdapter(
     private val todayClickCallback: () -> Unit,
     private val fragmentManager: FragmentManager,
@@ -98,7 +99,7 @@ class CalendarAdapter(
                 val widthMeasureSpec =
                     View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
                 val heightMeasureSpec =
-                    View.MeasureSpec.makeMeasureSpec(view.height, View.MeasureSpec.UNSPECIFIED)
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
 
                 view.measure(widthMeasureSpec, heightMeasureSpec)
 

@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
 
+// Calendar에서 월별 날짜 데이터를 표시하기 위한 기본 모델 클래스
 @RequiresApi(Build.VERSION_CODES.O)
 data class MonthlyCalendar(
     val year: Int,

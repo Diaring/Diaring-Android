@@ -16,6 +16,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+
+// 의존성 주입을 위한 모듈
 @InstallIn(SingletonComponent::class)
 @Module
 class DiaryDatabaseModule {

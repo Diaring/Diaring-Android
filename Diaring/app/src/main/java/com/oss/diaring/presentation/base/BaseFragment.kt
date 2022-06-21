@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
+// 보일러-플레이트 코드를 줄이기 위한 Fragment 추상 클래스
 abstract class BaseFragment<T : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int
 ) : Fragment() {

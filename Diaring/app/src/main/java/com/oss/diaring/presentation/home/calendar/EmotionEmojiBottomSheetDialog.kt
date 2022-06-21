@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.oss.diaring.R
 import com.oss.diaring.databinding.BottomSheetEmotionEmojiBinding
 
+// Home Fragment에서 감정 이모지 정보와 일기 작성을 다이얼로그 형태로 보이기 위한 Fragment 클래스
 class EmotionEmojiBottomSheetDialog : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetEmotionEmojiBinding? = null

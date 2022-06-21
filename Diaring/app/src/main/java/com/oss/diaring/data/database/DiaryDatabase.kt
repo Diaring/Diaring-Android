@@ -11,6 +11,7 @@ import com.oss.diaring.data.database.entity.DailyEmojis
 import com.oss.diaring.data.database.entity.DailyWeather
 import com.oss.diaring.data.database.entity.Diary
 
+// 앱이 실행될 때 Database 사용을 위해 선언하는 추상 클래스
 @Database(version = 1, entities = [Diary::class, DailyEmojis::class, DailyWeather::class], exportSchema = false)
 @TypeConverters(
     value = [

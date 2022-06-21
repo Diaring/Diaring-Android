@@ -10,6 +10,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.math.abs
 
+// Calendar Fragment와 함께 캘린더의 날짜를 좌우 스와이핑 하기 위해 사용하는 ViewPager Adapte 클래스
 class CalendarViewPagerAdapter(
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle

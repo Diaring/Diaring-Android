@@ -112,7 +112,7 @@ dependencies {
     // Image Cropper
     implementation 'com.github.CanHub:Android-Image-Cropper:4.2.1'
 
-// Android Shape Imageview
+    // Android Shape Imageview
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
 
     // Android Sliding Up Panel

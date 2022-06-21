@@ -3,6 +3,7 @@ package com.oss.diaring.data.sharedpreference
 import android.content.Context
 import com.oss.diaring.util.Constants.PREF_FILE_NAME
 
+// 간단한 값 저장을 위한 Preference 인터페이스 구현체
 class SharedPrefManagerImpl(private val context: Context) : SharedPrefManager {
 
     private val preference = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)

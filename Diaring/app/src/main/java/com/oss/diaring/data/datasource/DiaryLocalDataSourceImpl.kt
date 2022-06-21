@@ -9,6 +9,8 @@ import com.oss.diaring.util.EmojiStates
 import java.time.LocalDate
 import javax.inject.Inject
 
+
+// Data에 접근하기 위한 비즈니스 로직 구현체
 class DiaryDataSourceImpl @Inject constructor(
     private val diaryDao: DiaryDao
 ) : DiaryDataSource {

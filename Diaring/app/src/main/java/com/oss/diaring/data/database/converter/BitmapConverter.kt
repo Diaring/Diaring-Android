@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
 
+// Bitmap을 ByteArray로 변환하여 저장하기 위한 Converter
 class BitmapConverter {
 
     @TypeConverter

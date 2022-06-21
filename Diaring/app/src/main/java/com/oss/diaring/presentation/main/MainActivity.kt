@@ -1,22 +1,13 @@
 package com.oss.diaring.presentation.main
 
-import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.CropImageView
-import com.canhub.cropper.options
 import com.oss.diaring.R
 import com.oss.diaring.databinding.ActivityMainBinding
 import com.oss.diaring.presentation.base.BaseActivity
-import com.oss.diaring.presentation.diary.DiaryListData
-import com.oss.diaring.presentation.signup.SignUpActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

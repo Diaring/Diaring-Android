@@ -2,9 +2,13 @@ package com.oss.diaring.presentation.home.calendar
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,25 +22,37 @@ import com.oss.diaring.util.EmojiSwipeListener
 import com.oss.diaring.util.MonthSwipeListener
 import com.oss.diaring.util.TodayClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.time.LocalDate
 
 @AndroidEntryPoint
-class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment_calendar),
-    TodayClickListener, EmojiSwipeListener {
+class CalendarFragment : Fragment(), TodayClickListener, EmojiSwipeListener {
 
     private lateinit var viewPool: RecyclerView.RecycledViewPool
+    private lateinit var binding: FragmentCalendarBinding
 
     private val viewModel: CalendarViewModel by viewModels()
 
-    private val calendarDayAdapter =  CalendarDayAdapter(::dayClickCallback)
+    private val calendarDayAdapter = CalendarDayAdapter(::dayClickCallback)
     private val dayClickListener: DayClickListener?
         get() = parentFragment as? DayClickListener
     private val monthSwipeListener: MonthSwipeListener?
         get() = parentFragment as? MonthSwipeListener
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Timber.e("VIEWCREATED")
 
         initRecyclerView()
         initObserver()
@@ -45,7 +61,9 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
     override fun onResume() {
         super.onResume()
 
-        (parentFragment as HomeFragment).setCalendarListener(this)
+        Timber.e("RESUME")
+
+        (parentFragment as? HomeFragment)?.setCalendarListener(this)
         binding.pbLoading.isVisible = true  // View.VISIBLE
 
         setMonthlyEmojiData()
@@ -64,7 +82,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
 
     private fun initObserver() {
         viewModel.monthlyEmoji.observe(viewLifecycleOwner) { itemList ->
-            Log.e("CHECK", "$itemList")
+            Log.e("CHECK", "a")
             calendarDayAdapter.submitList(itemList)
             binding.pbLoading.isVisible = false
             monthSwipeListener?.onSwipe()
@@ -108,7 +126,6 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(R.layout.fragment
 
         }
     }
-
 
 
 }

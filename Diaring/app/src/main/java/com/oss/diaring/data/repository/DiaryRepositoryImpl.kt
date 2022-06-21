@@ -8,6 +8,7 @@ import com.oss.diaring.data.model.DiaryWithDailyEmoji
 import java.time.LocalDate
 import javax.inject.Inject
 
+// Data를 사용하기 위한 Repository 구현체
 class DiaryRepositoryImpl @Inject constructor(
     private val dataSource: DiaryDataSource
 ) : DiaryRepository {

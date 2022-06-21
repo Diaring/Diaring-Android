@@ -6,26 +6,9 @@ import com.oss.diaring.data.database.entity.DailyWeather
 import com.oss.diaring.data.database.entity.Diary
 import java.time.LocalDate
 
+// Database Query를 위한 Interface
 @Dao
 interface DiaryDao {
-//    @Query("SELECT * FROM `diary_database.db` WHERE date =:date")
-//    suspend fun getAllByDate(date: LocalDate): List<Diary>
-//
-//    @Query("SELECT * From `diary_database.db` WHERE date =:date")
-//    suspend fun getEmojisByDate(date: LocalDate): List<EmotionEmoji>
-//
-//    @Query("SELECT * FROM `diary_database.db` WHERE date =:date")
-//    suspend fun getWeatherByDate(date: LocalDate): List<Weather>
-//
-//    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//    suspend fun insertDiary(diary: Diary)
-//
-//    @Delete
-//    suspend fun deleteDiary(diary: Diary)
-//
-//    @Update
-//    suspend fun updateDiary(diary: Diary)
-
     @Query("SELECT * FROM DailyEmojis")
     suspend fun getAllDailyEmojis(): List<DailyEmojis>
 
