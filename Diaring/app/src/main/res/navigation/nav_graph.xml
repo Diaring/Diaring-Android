@@ -24,7 +24,13 @@
             app:destination="@id/navigation_diary"
             />
         <argument
-            android:name="diary_local_data"
+            android:name="diaries_indexes"
+            app:argType="integer[]"
+            android:defaultValue="@null"
+            app:nullable="true"
+            />
+        <argument
+            android:name="diary_index"
             app:argType="integer"
             android:defaultValue="0"
             />
@@ -39,7 +45,13 @@
             app:destination="@id/navigation_diary_list"
             />
         <argument
-            android:name="diary_local_data"
+            android:name="diaries_indexes"
+            app:argType="integer[]"
+            android:defaultValue="@null"
+            app:nullable="true"
+            />
+        <argument
+            android:name="diary_index"
             app:argType="integer"
             android:defaultValue="0"
             />

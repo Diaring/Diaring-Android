@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/changeImage"
+        android:title="@string/diary_popup_changeImage" />
+    <item
+        android:id="@+id/deleteImage"
+        android:title="@string/diary_popup_removeImage" />
+    <item
+        android:id="@+id/deletePage"
+        android:title="@string/diary_popup_deletePage" />
+</menu>

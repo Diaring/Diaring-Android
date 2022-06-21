@@ -42,7 +42,7 @@ interface DiaryDao {
     suspend fun updateDiary(diary: Diary)
 
     @Query("SELECT * FROM `diary_database.db` WHERE `no`=:id")
-    suspend fun getDiaryById(id: Int): Diary
+    suspend fun getDiaryById(id: Int): Diary?
 
     @Query("SELECT * FROM `diary_database.db`")
     suspend fun getAllDiaries(): List<Diary>//MutableMap<LocalDate, Diary>

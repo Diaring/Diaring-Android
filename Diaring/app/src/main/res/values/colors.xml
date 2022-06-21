@@ -10,7 +10,9 @@
 
     <!-- Diaring Color Set -->
     <color name="primary_blue">#66A4FF</color>
+    <color name="tone_down_primary_blue">#4487dd</color>
     <color name="secondary_purple">#B39DDB</color>
+    <color name="tone_down_secondary_purple">#A38DCB</color>
     <color name="accent_red">#FF5449</color>
 
     <color name="background">#FDFCFF</color>
