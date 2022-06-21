@@ -53,10 +53,11 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
 
     private var currentDiaryId: Int = localDateToIntId(LocalDate.now())
     private var currentDiaryLocalDate: LocalDate = LocalDate.now()
-    private var currentDiary: Diary? = Diary(localDateToIntId(LocalDate.now()), "", LocalDate.now(), "", listOf(), "", 0, 0, null)
-    private var diariesMap: MutableMap<LocalDate, Diary> = mutableMapOf<LocalDate, Diary>()
+    private var currentDiary: Diary? = null
+    private var diariesMap: MutableMap<LocalDate, Diary> = mutableMapOf()
     private var diariesIndexes: MutableList<Int> = mutableListOf(0)
 
+    private lateinit var defaultBitmapImage : Bitmap
     // db variable to use Room, created with databaseBuilder
     ////////////////////////////////////////////////////////////////
     private lateinit var db: DiaryDatabase
@@ -94,15 +95,18 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
             this.diariesIndexes = args.diariesIndexes!!.toMutableList()
             this.diariesIndexes.sort()
         }
+        val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_diary_default_image, null)
+        defaultBitmapImage = drawable!!.toBitmap()
 
         db = Room.databaseBuilder(requireContext(), DiaryDatabase::class.java, "diary_database.db").build()
+        currentDiary = Diary(localDateToIntId(LocalDate.now()), "", LocalDate.now(), "", listOf(), "", 0, 0, defaultBitmapImage)
 
         mBinding = FragmentDiaryBinding.inflate(inflater, container, false)
 
         // listener declaration
         bindViews()
 
-        // Get the diary using DiaryDao's Query function. Input Int and return Diary
+        // Get the diary using DiaryDao Query function. Input Int and return Diary
         loadDiaryFromDao(currentDiaryLocalDate)
         return diaryMBinding.root
     }
@@ -231,7 +235,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                                             }
 
                                         } catch (e: java.lang.Exception) {
-                                            Timber.e(e)
+                                            e.printStackTrace()
                                         }
                                     }
                                 })
@@ -308,7 +312,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
         // A listener that tracks the date of the diary recorded in a separate list
         // and moves to the next diary page position.
         diaryMBinding.diaryPrevArrow.setOnClickListener {
-            var destinationIndex = 0
+            var destinationIndex: Int
             var tempFlag = false
             if (diariesIndexes.contains(currentDiaryId)) {
                 destinationIndex = diariesIndexes.indexOf(currentDiaryId)
@@ -336,7 +340,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
         }
 
         diaryMBinding.diaryNextArrow.setOnClickListener {
-            var destinationIndex = 0
+            var destinationIndex: Int
             var tempFlag = false
             if (diariesIndexes.contains(currentDiaryId)) {
                 destinationIndex = diariesIndexes.indexOf(currentDiaryId)
@@ -504,7 +508,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
     // Distinguish between diaries in DB and diaries not in DB
     private fun setDiaryPage(cd: Diary?) {
         if (cd != null) {
-            var currentIndex = 0
+            var currentIndex: Int
             var tempFlag = false
             if (diariesIndexes.contains(cd.no)) {
                 currentIndex = diariesIndexes.indexOf(cd.no)
@@ -521,20 +525,30 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
             // It keeps track of whether there is a diary connected to the left or right and the date of the diary.
             var leftDateText = ""
             var rightDateText = ""
-            if (diariesIndexes.size==2) {
+            if (diariesIndexes.size == 2) {
                 if (currentIndex == 0) {
-                    rightDateText = "${diariesIndexes[currentIndex + 1] % 10000 / 100}/${diariesIndexes[currentIndex + 1] % 100}"
+                    rightDateText =
+                        "${diariesIndexes[currentIndex + 1] % 10000 / 100}/${diariesIndexes[currentIndex + 1] % 100}"
                 } else {
-                    leftDateText = "${diariesIndexes[currentIndex - 1] % 10000 / 100}/${diariesIndexes[currentIndex - 1] % 100}"
+                    leftDateText =
+                        "${diariesIndexes[currentIndex - 1] % 10000 / 100}/${diariesIndexes[currentIndex - 1] % 100}"
                 }
-            } else if (diariesIndexes.size >3) {
-                if (currentIndex == 0) {
-                    rightDateText = "${diariesIndexes[currentIndex + 1] % 10000 / 100}/${diariesIndexes[currentIndex + 1] % 100}"
-                } else if (currentIndex == diariesIndexes.size-1){
-                    leftDateText = "${diariesIndexes[currentIndex - 1] % 10000 / 100}/${diariesIndexes[currentIndex - 1] % 100}"
-                } else {
-                    leftDateText = "${diariesIndexes[currentIndex - 1] % 10000 / 100}/${diariesIndexes[currentIndex - 1] % 100}"
-                    rightDateText = "${diariesIndexes[currentIndex + 1] % 10000 / 100}/${diariesIndexes[currentIndex + 1] % 100}"
+            } else if (diariesIndexes.size > 3) {
+                when (currentIndex) {
+                    0 -> {
+                        rightDateText =
+                            "${diariesIndexes[currentIndex + 1] % 10000 / 100}/${diariesIndexes[currentIndex + 1] % 100}"
+                    }
+                    diariesIndexes.size - 1 -> {
+                        leftDateText =
+                            "${diariesIndexes[currentIndex - 1] % 10000 / 100}/${diariesIndexes[currentIndex - 1] % 100}"
+                    }
+                    else -> {
+                        leftDateText =
+                            "${diariesIndexes[currentIndex - 1] % 10000 / 100}/${diariesIndexes[currentIndex - 1] % 100}"
+                        rightDateText =
+                            "${diariesIndexes[currentIndex + 1] % 10000 / 100}/${diariesIndexes[currentIndex + 1] % 100}"
+                    }
                 }
             }
 
@@ -576,6 +590,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
             currentDiary?.content = diaryMBinding.diaryContentText.text.toString()
             currentDiary?.weather = currentPageWeather
             currentDiary?.emotion = currentPageEmotion
+
             if (diaryMBinding.diaryMainImage.drawable != null) {
                 currentDiary?.image =
                     diaryMBinding.diaryMainImage.drawable.toBitmap()
@@ -584,24 +599,33 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
             if (currentDiary != null) {
                 diariesMap[currentDiary!!.date] = currentDiary!!
                 GlobalScope.launch {
-                    db.diaryDao().insertDiary(currentDiary!!)
+                    try {
+                        db.diaryDao().insertDiary(currentDiary!!)
+                    } catch (e : java.lang.Exception) {
+                        e.printStackTrace()
+                    }
                 }
                 if (!diariesIndexes.contains(currentDiaryId)) {
                     diariesIndexes.add(currentDiaryId)
                 }
             }
         } catch (e : java.lang.Exception) {
-            Timber.e(e.toString())
+            e.printStackTrace()
         }
     }
 
     // A function that calls the camera after checking the permission
     private fun cameraCall() {
-        val cameraPermission = ContextCompat.checkSelfPermission(this.requireContext(), android.Manifest.permission.CAMERA)
+        val cameraPermission = ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.CAMERA)
+        val storagePermission = ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
         if (cameraPermission == PackageManager.PERMISSION_GRANTED) {
-            startCrop()
+            if ( storagePermission == PackageManager.PERMISSION_GRANTED) {
+                startCrop()
+            } else {
+                ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+            }
         } else {
-            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(android.Manifest.permission.CAMERA), 99)
+            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(Manifest.permission.CAMERA), 0)
         }
     }
 
@@ -621,7 +645,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                     for (grant in grantResults) {
                         if (grant != PackageManager.PERMISSION_GRANTED) {
                             isAllGranted = false
-                            break;
+                            break
                         }
                     }
 
@@ -638,8 +662,18 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                             || !ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
                                 Manifest.permission.CAMERA)){
                             // 다시 묻지 않기 체크하면서 권한 거부 되었음.
+                            Toast.makeText(
+                                this.requireContext(),
+                                "권한 거부됨. 카메라 이용 불가",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
                             // 접근 권한 거부하였음.
+                            Toast.makeText(
+                                this.requireContext(),
+                                "권한 거부됨. 카메라 이용 불가",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
@@ -666,23 +700,19 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
         if (result.isSuccessful) {
             imageUri = result.uriContent
             var uriFilePath = result.getUriFilePath(requireContext()) // optional usage
-
             var imageFile : File? = createImageFile()
-
             try {
                 val out = FileOutputStream(imageFile)
-                result.bitmap?.compress(Bitmap.CompressFormat.PNG, 100, out)
+                result.bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, out)
                 out.flush()
                 out.close()
 
-                //갤러리 갱신
                 requireContext().sendBroadcast(
                     Intent(
                         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-                        Uri.parse("file://" + Environment.getExternalStorageDirectory())
+                        Uri.parse(Environment.getExternalStorageDirectory().toString() + "/Pictures/Diaring")
                     )
                 )
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -701,7 +731,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                 diaryMBinding.diaryAddImage.alpha = 0f
                 diaryMBinding.diaryAddImage.isClickable = false
             } catch (e : java.lang.Exception) {
-                Timber.e(e.toString())
+                e.printStackTrace()
             }
         }
     }
@@ -712,7 +742,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
         val imageFileName = "JPEG_$timeStamp.jpg"
         var imageFile: File? = null
         val storageDir = File(
-            Environment.getExternalStorageDirectory().toString() + "/Diaring",
+            Environment.getExternalStorageDirectory().toString() + "/Pictures/Diaring",
             "Image"
         )
         if (!storageDir.exists()) {
@@ -740,11 +770,10 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                 val darkMutedColor = palette.getDarkMutedColor(ResourcesCompat.getColor(resources, R.color.tone_down_primary_blue, null))
 //                val darkMutedColor = palette.getDarkVibrantColor(ResourcesCompat.getColor(resources, R.color.primary_blue, null))
 
-                diaryMBinding.root.setBackgroundDrawable(linearGradientDrawable(darkMutedColor, darkMutedColor, dominantColor))
+                diaryMBinding.root.setBackgroundDrawable(linearGradientDrawable(darkMutedColor, darkMutedColor, mutedColor))
                 activity?.window?.statusBarColor = darkMutedColor
             }
         }
-        Timber.d("color %s", diaryMBinding.root.background)
     }
 
     // Create a linear gradient drawable object
@@ -761,7 +790,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
     ////////////////////////////////////////////////////////////////
 
     private fun removeImage() {
-        currentDiary?.image = null
+        currentDiary?.image = defaultBitmapImage
         diaryMBinding.diaryMainImage.setImageResource(R.drawable.ic_diary_default_image)
         setDiaryBackgroundColor()
         diaryMBinding.root.setBackgroundResource(R.drawable.bg_diary_main_background)
@@ -847,7 +876,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
         GlobalScope.launch {
             currentDiary = db.diaryDao().getDiaryById(id)
             if (currentDiary == null)
-                currentDiary = Diary(localDateToIntId(currentDiaryLocalDate), "", currentDiaryLocalDate, "", listOf(), "", 0, 0, null)
+                currentDiary = Diary(localDateToIntId(currentDiaryLocalDate), "", currentDiaryLocalDate, "", listOf(), "", 0, 0, defaultBitmapImage)
 //            Log.d("diary", currentDiary.toString())
         }
     }
@@ -855,6 +884,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
     // It is a commonly used query function that returns Diary. If null is returned,
     // a new Diary is created.
     private fun loadDiaryFromDao(ld: LocalDate) {
+        try {
         GlobalScope.launch {
             currentDiary = db.diaryDao().getDiaryById(localDateToIntId(ld))
             if (currentDiary == null) {
@@ -867,10 +897,12 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
                     "",
                     0,
                     0,
-                    null
+                    defaultBitmapImage
                 )
             }
-            Timber.d(currentDiary.toString())
+        }
+        } catch (e : Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -878,7 +910,7 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
     private fun loadAllDiariesFromDao() {
         GlobalScope.launch {
             val crv = db.diaryDao().getAllDiaries()
-            diariesMap = crv.map{ it.date to it }.toMap().toMutableMap()
+            diariesMap = crv.associateBy { it.date }.toMutableMap()
         }
     }
 
@@ -888,8 +920,11 @@ class DiaryFragment : BaseFragment<FragmentDiaryBinding>(R.layout.fragment_diary
     }
 
     private fun intIdToLocalDate(id: Int): LocalDate {
-        if (id == 0) return LocalDate.now()
-        else return LocalDate.of(id/10000, id%10000/100, id%100)
+        return if (id == 0) {
+            LocalDate.now()
+        } else {
+            LocalDate.of(id/10000, id%10000/100, id%100)
+        }
     }
 
     private fun localDateToFormattedString(ld: LocalDate): String {

@@ -116,7 +116,7 @@
         <!-- 일기 메인 이미지, 해시태그 텍스트 -->
         <!-- //////////////////////////////////////////////////////////////// -->
 
-        <!-- Rectangle shape에 round edge 적용 시, round edge가 image에 적용되지 않는 버그가 존재함-->
+        <!-- Rectangle shape 에 round edge 적용 시, round edge 가 image 에 적용되지 않는 버그가 존재함-->
         <!-- 외부 라이브러리 Android Shape ImageView 를 사용하여 해결했으나 추후 더 나은 방법이 발견되면 개선할 예정 -->
         <!-- Android Shape ImageView 코드 분석 결과 문제 발생 가능성 낮다고 판단. 디버그 중 문제 발견되지 않는 한 유지 -->
         <com.github.siyamed.shapeimageview.RoundedImageView
@@ -311,41 +311,6 @@
             app:layout_constraintBottom_toBottomOf="@id/diary_play_button"
             tools:targetApi="O"
             />
-
-<!--        <TextView-->
-<!--            android:id="@+id/diary_emotion_seekBar_Textview"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="135dp"-->
-<!--            android:text="asdf"-->
-<!--            android:textColor="@color/transparency_75"-->
-<!--            android:textSize="15dp"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/diary_emotion_seekBar"-->
-<!--            app:layout_constraintStart_toStartOf="@id/diary_emotion_seekBar" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/diary_very_bad"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="-10dp"-->
-<!--            android:contentDescription=" "-->
-<!--            android:scaleType="fitXY"-->
-<!--            android:src="@drawable/ic_very_bad_24"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/diary_emotion_seekBar"-->
-<!--            app:layout_constraintTop_toTopOf="@id/diary_emotion_seekBar"-->
-<!--            app:tint="@color/transparency_75" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/diary_very_good"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="-10dp"-->
-<!--            android:contentDescription=" "-->
-<!--            android:scaleType="fitXY"-->
-<!--            android:src="@drawable/ic_very_good_24"-->
-<!--            app:layout_constraintStart_toEndOf="@id/diary_emotion_seekBar"-->
-<!--            app:layout_constraintTop_toTopOf="@id/diary_emotion_seekBar"-->
-<!--            app:tint="@color/transparency_75" />-->
 
         <!-- //////////////////////////////////////////////////////////////// -->
         <!-- 화살표 및 재생 이미지 버튼, 관련 텍스트 -->

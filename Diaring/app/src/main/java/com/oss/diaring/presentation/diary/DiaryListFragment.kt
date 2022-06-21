@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.widget.AlertDialogLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
@@ -37,10 +38,11 @@ class DiaryListFragment : BaseFragment<FragmentDiaryListBinding>(R.layout.fragme
     private var currentPageLocalDate: LocalDate = LocalDate.now()
     private var recentlyVisitedDiaryDate: Int = localDateToIntId(LocalDate.now())
 
-    private var diariesMap: MutableMap<LocalDate, Diary> = mutableMapOf<LocalDate, Diary>()
+    private var diariesMap: MutableMap<LocalDate, Diary> = mutableMapOf()
     private var diariesIndexes: MutableList<Int> = mutableListOf(0)
     private lateinit var db: DiaryDatabase
 
+    private lateinit var defaultBitmapImage : Bitmap
     private lateinit var diaryListAdapter: DiaryListAdapter // by lazy { DiaryListAdapter() }
 
     private var mBinding: FragmentDiaryListBinding? = null
@@ -49,7 +51,6 @@ class DiaryListFragment : BaseFragment<FragmentDiaryListBinding>(R.layout.fragme
     private val mHandler: Handler = Handler(Looper.getMainLooper())
 
     private var viewAll: Boolean = false
-//    private val pagerSnapHelper: PagerSnapHelper by lazy { PagerSnapHelper() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,30 +75,26 @@ class DiaryListFragment : BaseFragment<FragmentDiaryListBinding>(R.layout.fragme
 
         // Insert sample database
         GlobalScope.launch {
+            val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_diary_default_image, null)
+            defaultBitmapImage = drawable!!.toBitmap()
             if (db.diaryDao().getDiaryById(20220302)==null) {
-                val drawable = resources.getDrawable(R.drawable.ic_diary_default_image)
-                val bitmap = drawable.toBitmap()
-                db.diaryDao().insertDiary( Diary(20220302, "첫 일기", LocalDate.of(2022,3,2), "우리 집", listOf(), "쓸 말이 없다", 2, 5, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220315, "두번째 일기", LocalDate.of(2022,3,15), "우리 집", listOf(), "쓸 말이 없네", 2, 5, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220321, "제목 뭐하지", LocalDate.of(2022,3,21), "우리 집", listOf(), "쓸 말이 없군", 4, 4, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220403, "배고프다", LocalDate.of(2022,4,3), "우리 집", listOf(), "쓸 말이 없어", 2, 3, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220405, "졸리다", LocalDate.of(2022,4,5), "우리 집", listOf(), "쓸 말이 없어요", 3, 5, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220410, "자고 싶다", LocalDate.of(2022,4,10), "우리 집", listOf(), "쓸 말이 없는데", 3, 5, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220412, "으악", LocalDate.of(2022,4,12), "우리 집", listOf(), "쓸 말이 없지만", 3, 2, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220422, "여기는 뭐", LocalDate.of(2022,4,22), "우리 집", listOf(), "어차피 여기는", 4, 3, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220426, "잠깐 보고", LocalDate.of(2022,4,26), "우리 집", listOf(), "시연할 때 안누르니까", 3, 1, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220430, "넘어갑니다", LocalDate.of(2022,4,30), "우리 집", listOf(), "아무 말이나 써두고", 2, 1, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220511, "바쁘다", LocalDate.of(2022,5,11), "우리 집", listOf(), "넘어갑시다", 1, 4, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220515, "티비를 샀다", LocalDate.of(2022,5,15), "우리 집", listOf(), "근데 화면이 안나온다. 이걸로 체스나 해야지\n\n\n" +
-                        "\n" +
-                        "스크롤테스트\n\n" +
-                        "\n" +
-                        "스크롤테스트\n\n", 3, 1, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220516, "조명을 달았다", LocalDate.of(2022,5,16), "성수동 카페", listOf(), "너무바빠\n \n", 4, 2, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220517, "우리 집 소파", LocalDate.of(2022,5,17), "우리 아빠 집", listOf(), "참 좋은 집에 사는구나", 3, 3, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220518, "내 강아지", LocalDate.of(2022,5,18), "우리... 집?", listOf(), "\"댕귀여워\"", 2, 5, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220610, "아아아아", LocalDate.of(2022,6,10), "우리 집", listOf(), "쓸 말이 없네", 3, 4, bitmap) )
-                db.diaryDao().insertDiary( Diary(20220612, "히히 눈온다", LocalDate.of(2022,6,12), "우리 집", listOf(), "눈이다!", 1, 5, bitmap) )
+                db.diaryDao().insertDiary( Diary(20220302, "첫 일기", LocalDate.of(2022,3,2), "우리 집", listOf(), "쓸 말이 없다", 2, 5, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220315, "두번째 일기", LocalDate.of(2022,3,15), "우리 집", listOf(), "쓸 말이 없네", 2, 5, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220321, "제목 뭐하지", LocalDate.of(2022,3,21), "우리 집", listOf(), "쓸 말이 없군", 4, 4, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220403, "배고프다", LocalDate.of(2022,4,3), "우리 집", listOf(), "쓸 말이 없어", 2, 3, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220405, "졸리다", LocalDate.of(2022,4,5), "우리 집", listOf(), "쓸 말이 없어요", 3, 5, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220410, "자고 싶다", LocalDate.of(2022,4,10), "우리 집", listOf(), "쓸 말이 없는데", 3, 5, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220412, "으악", LocalDate.of(2022,4,12), "우리 집", listOf(), "쓸 말이 없지만", 3, 2, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220422, "여기는 뭐", LocalDate.of(2022,4,22), "우리 집", listOf(), "어차피 여기는", 4, 3, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220426, "잠깐 보고", LocalDate.of(2022,4,26), "우리 집", listOf(), "시연할 때 안누르니까", 3, 1, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220430, "넘어갑니다", LocalDate.of(2022,4,30), "우리 집", listOf(), "아무 말이나 써두고", 2, 1, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220511, "바쁘다", LocalDate.of(2022,5,11), "우리 집", listOf(), "넘어갑시다", 1, 4, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220515, "티비를 샀다", LocalDate.of(2022,5,15), "우리 집", listOf(), "근데 화면이 안나온다. 이걸로 체스나 해야지\n\n\n\n스크롤테스트\n\n\n\n\n\n스크롤테스트\n\n\n\n\n\n스크롤ㄹㄹㄹ\n\n", 3, 1, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220516, "조명을 달았다", LocalDate.of(2022,5,16), "성수동 카페", listOf(), "너무바빠\n \n", 4, 2, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220517, "우리 집 소파", LocalDate.of(2022,5,17), "우리 아빠 집", listOf(), "참 좋은 집에 사는구나", 3, 3, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220518, "내 강아지", LocalDate.of(2022,5,18), "우리... 집?", listOf(), "\"댕귀여워\"", 2, 5, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220610, "아아아아", LocalDate.of(2022,6,10), "우리 집", listOf(), "쓸 말이 없네", 3, 4, defaultBitmapImage) )
+                db.diaryDao().insertDiary( Diary(20220612, "히히 눈온다", LocalDate.of(2022,6,12), "우리 집", listOf(), "눈이다!", 1, 5, defaultBitmapImage) )
                 delay(100)
             }
 
@@ -129,21 +126,23 @@ class DiaryListFragment : BaseFragment<FragmentDiaryListBinding>(R.layout.fragme
 
     private fun bindViews() {
         diaryListMBinding.diaryListBackArrow.setOnClickListener {
-            if (currentPageLocalDate.monthValue == 1) {
-                currentPageLocalDate = LocalDate.of(currentPageLocalDate.year-1, 12, currentPageLocalDate.dayOfMonth)
-            } else {
-                currentPageLocalDate = LocalDate.of(currentPageLocalDate.year, currentPageLocalDate.monthValue-1, currentPageLocalDate.dayOfMonth)
-            }
+            currentPageLocalDate =
+                if (currentPageLocalDate.monthValue == 1) {
+                    LocalDate.of(currentPageLocalDate.year-1, 12, currentPageLocalDate.dayOfMonth)
+                } else {
+                    LocalDate.of(currentPageLocalDate.year, currentPageLocalDate.monthValue-1, currentPageLocalDate.dayOfMonth)
+                }
             loadDateText()
             initDiaryListRecyclerView(currentPageLocalDate)
         }
 
         diaryListMBinding.diaryListForwardArrow.setOnClickListener {
-            if (currentPageLocalDate.monthValue == 12) {
-                currentPageLocalDate = LocalDate.of(currentPageLocalDate.year+1, 1, currentPageLocalDate.dayOfMonth)
-            } else {
-                currentPageLocalDate = LocalDate.of(currentPageLocalDate.year, currentPageLocalDate.monthValue+1, currentPageLocalDate.dayOfMonth)
-            }
+            currentPageLocalDate =
+                if (currentPageLocalDate.monthValue == 12) {
+                    LocalDate.of(currentPageLocalDate.year+1, 1, currentPageLocalDate.dayOfMonth)
+                } else {
+                    LocalDate.of(currentPageLocalDate.year, currentPageLocalDate.monthValue+1, currentPageLocalDate.dayOfMonth)
+                }
             loadDateText()
             initDiaryListRecyclerView(currentPageLocalDate)
         }

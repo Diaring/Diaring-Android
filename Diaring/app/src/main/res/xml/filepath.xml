@@ -4,5 +4,5 @@
     <external-files-path name="external_files_path" path="." />
     <external-path
         name="Diaring"
-        path="Android/data/com.oss.diaring/files/Diaring" />
+        path="/storage/emulated/0/Pictures" />
 </paths>
